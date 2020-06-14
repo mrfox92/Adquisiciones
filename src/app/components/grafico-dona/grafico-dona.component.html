@@ -1,0 +1,9 @@
+<div>
+    <div>
+        <h3 class="text-center">{{ grafico.leyenda }}</h3>
+        <div style="display: block">
+            <canvas baseChart [data]="grafico.data" [labels]="grafico.labels" [chartType]="grafico.type">
+        </canvas>
+        </div>
+    </div>
+</div>
