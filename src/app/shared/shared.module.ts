@@ -3,6 +3,10 @@ import { HeaderComponent } from './header/header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+//  modulo para trabajar con routerLink y routerLinkActive
+import { RouterModule } from '@angular/router';
+//  cargar directivas
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -17,6 +21,10 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
         BreadcrumbsComponent,
         SidebarComponent,
         NopagefoundComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule
     ]
 })
 export class SharedModule { }
