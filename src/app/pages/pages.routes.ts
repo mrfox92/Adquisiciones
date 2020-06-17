@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -7,12 +7,15 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
+import { LoginGuardGuard } from '../services/service.index';
+
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
 const pagesRoutes: Routes = [
     {
             path: '',
             component: PagesComponent,
+            canActivate: [ LoginGuardGuard ],
             children: [
 
                 { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
