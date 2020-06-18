@@ -5,6 +5,8 @@ import { URL_SERVICES } from '../../config/config';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UploadFileService } from '../upload-file/upload-file.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,11 @@ export class UserService {
   token: string;
   checkIsLoggedIn: boolean = false;
 
-  constructor( public router: Router, public http: HttpClient ) {
+  constructor(
+    public router: Router,
+    public http: HttpClient,
+    public uploadFileService: UploadFileService
+  ) {
     this.cargarStorage();
   }
 
@@ -70,6 +76,8 @@ export class UserService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('id');
+
 
     this.router.navigate(['/login']);
   }
@@ -98,12 +106,67 @@ export class UserService {
                           if ( resp.status === 'success' ) {
                             //  grabamos en el storage
                             this.guardarStorage( resp.id, resp.token, resp.user );
+                            //  leemos del storage
+                            this.cargarStorage();
                           }
 
                           return resp;
 
                         })
                     );
+
+  }
+
+  updateUser( user: User ) {
+
+    //  http://acquisitions.cl/api/user/edit/14
+    const url = `${ URL_SERVICES }/user/edit/${ user.id }`;
+    //  creamos nuestro json
+    const $json = JSON.stringify( user );
+    //  agregamos las cabeceras
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Authorization', this.token);
+    //  pasamos nuestros parametros
+    const params = `json=${ $json }`;
+
+    return this.http.put( url, params, { headers } )
+                    .pipe(
+                      map( (resp: any) => {
+                        // this.user = resp.user;
+                        if ( resp.status === 'success' ) {
+                          this.guardarStorage( resp.user.id, this.token , resp.user );
+                        }
+                        // console.log( resp );
+                        return resp;
+                      })
+                    );
+
+  }
+
+  updateImage( file: File, id: number ) {
+
+    this.uploadFileService.uploadFile( file, 'user', id, this.token )
+        .then( (resp: any) => {
+          // console.log( resp );
+          if ( resp.status === 'success' ) {
+
+            this.user.avatar = resp.user.avatar;
+            //  enviamos la notificación al usuario
+            Swal.fire({
+              title: 'Imagen Actualizada!',
+              text: this.user.name,
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
+
+            //  guardamos en el storage
+            this.guardarStorage( resp.user.id, this.token, resp.user );
+          }
+        })
+        .catch( resp => {
+          console.log( resp );
+        });
 
   }
 }

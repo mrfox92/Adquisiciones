@@ -11,6 +11,10 @@ export class User {
         // tslint:disable-next-line: variable-name
         public role_id?: number,
         public slug?: string,
-        public avatar?: string
+        public avatar?: string,
+        // tslint:disable-next-line: variable-name
+        public created_at?: any,
+        // tslint:disable-next-line: variable-name
+        public updated_at?: any,
     ) { }
 }

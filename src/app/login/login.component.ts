@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    let user = new User(null, null, forma.value.email, forma.value.password, true);
+    let user = new User(null, null, forma.value.email, forma.value.password, false);
 
     //  llamamos a nuestro servicio
     this.userService.login( user, forma.value.recuerdame ).subscribe(

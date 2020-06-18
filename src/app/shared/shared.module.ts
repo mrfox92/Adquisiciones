@@ -7,6 +7,8 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { RouterModule } from '@angular/router';
 //  cargar directivas
 import { CommonModule } from '@angular/common';
+//  Pipe Module
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { CommonModule } from '@angular/common';
     ],
     imports: [
         CommonModule,
-        RouterModule
+        RouterModule,
+        PipesModule
     ]
 })
 export class SharedModule { }
