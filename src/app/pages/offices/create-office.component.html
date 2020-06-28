@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row justify-content-center animated fadeIn" *ngIf="departments">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nueva oficina</h4>
+                    <h6 class="card-subtitle">utiliza este formulario para registrar una nueva oficina</h6>
+                    <form ngNativeValidate [formGroup]="formulario" class="form-horizontal p-t-20" (ngSubmit)="registerOffice()">
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Departamentos</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-tasks"></i></div>
+                                    <select formControlName="department_id" class="form-control">
+                                        <option value="" disabled>Seleccione departamento</option>
+                                        <option *ngFor="let department of departments" [ngValue]="department.id">{{ department.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon "><i class="ti-user"></i></div>
+                                    <input formControlName="name" type="text" class="form-control" placeholder="Nombre oficina">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0 ">
+                            <div class="offset-sm-3 col-sm-9 col-md-12 ">
+                                <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                    <i class="fa fa-save "></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

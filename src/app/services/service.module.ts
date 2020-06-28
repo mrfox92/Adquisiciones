@@ -7,7 +7,13 @@ import { SettingsService,
   SharedService,
   UserService,
   LoginGuardGuard,
-  UploadFileService
+  UploadFileService,
+  MaterialsService,
+  ProvidersService,
+  DepartmentsService,
+  OfficesService,
+  InvoicesService,
+  AcquisitionsService
 } from './service.index';
 
 @NgModule({
@@ -23,7 +29,13 @@ import { SettingsService,
     SharedService,
     UserService,
     LoginGuardGuard,
-    UploadFileService
+    UploadFileService,
+    MaterialsService,
+    ProvidersService,
+    DepartmentsService,
+    OfficesService,
+    InvoicesService,
+    AcquisitionsService
   ]
 })
 export class ServiceModule { }

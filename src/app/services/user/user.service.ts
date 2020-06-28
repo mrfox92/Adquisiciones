@@ -3,7 +3,7 @@ import { User } from '../../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICES } from '../../config/config';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UploadFileService } from '../upload-file/upload-file.service';
 import Swal from 'sweetalert2';
@@ -135,6 +135,8 @@ export class UserService {
                       map( (resp: any) => {
                         // this.user = resp.user;
                         if ( resp.status === 'success' ) {
+
+                          //  comprobamos
                           this.guardarStorage( resp.user.id, this.token , resp.user );
                         }
                         // console.log( resp );
@@ -142,6 +144,37 @@ export class UserService {
                       })
                     );
 
+  }
+
+  updateRoleUser( user: User ) {
+    //  http://acquisitions.cl/api/user/role/17
+    const url = `${ URL_SERVICES }/user/role/${ user.id }`;
+    //  creamos nuestro json
+    const $json = JSON.stringify( user );
+    //  agregamos las cabeceras
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Authorization', this.token);
+    //  pasamos nuestros parametros
+    const params = `json=${ $json }`;
+
+    return this.http.put( url, params, { headers } )
+                    .pipe(
+                      map( (resp: any) => {
+                        // this.user = resp.user;
+                        if ( resp.status === 'success' ) {
+
+                          //  comprobamos si el usuario que está autenticado actualiza su role llamamos al storage
+                          if ( user.id === this.user.id ) {
+
+                            //  comprobamos
+                            this.guardarStorage( resp.user.id, this.token , resp.user );
+                          }
+                        }
+                        // console.log( resp );
+                        return resp;
+                      })
+                    );
   }
 
   updateImage( file: File, id: number ) {
@@ -168,5 +201,55 @@ export class UserService {
           console.log( resp );
         });
 
+  }
+
+  cargarUsuarios( page: number = 0 ) {
+    //  http://acquisitions.cl/api/user?page=1
+    let url = `${ URL_SERVICES }/user?page=${ page }`;
+
+    return this.http.get( url );
+  }
+
+  //  metodos para peticiones de paginacion de resultados
+
+  nextPageUsers( nextPageUrl: string, termino: string = '', search: boolean = false ) {
+
+    let url = '';
+    if ( search ) {
+      url = `${ nextPageUrl }&search=${ termino }`;
+    } else {
+      url = `${ nextPageUrl }`;
+    }
+    //  realizamos la petición y retornamos el resultado
+    return this.http.get( url );
+  }
+
+  prevPageUsers( prevPageUrl: string, termino: string = '', search: boolean = false ) {
+
+    let url = '';
+    if ( search ) {
+      url = `${ prevPageUrl }&search=${ termino }`;
+    } else {
+      url = `${ prevPageUrl }`;
+    }
+    //  realizamos la petición y retornamos el resultado
+    return this.http.get( url );
+  }
+
+  buscarUsuarios( termino: string ) {
+    //  http://acquisitions.cl/api/user/search?search=
+
+    const url = `${ URL_SERVICES }/user/search?search=${ termino }`;
+
+    return this.http.get( url );
+  }
+
+  deleteUser( id: number ) {
+    //  enviamos el token
+    //  http://acquisitions.cl/api/user/delete/10
+    let url = `${ URL_SERVICES }/user/delete/${ id }`;
+    let headers = new HttpHeaders().set('Authorization', this.token);
+
+    return this.http.delete( url, { headers } );
   }
 }

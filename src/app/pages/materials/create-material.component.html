@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row justify-content-center animated fadeIn">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nuevo Material</h4>
+                    <h6 class="card-subtitle">utiliza este formulario para registrar un nuevo material</h6>
+                    <form ngNativeValidate [formGroup]="formulario" class="form-horizontal p-t-20" (ngSubmit)="registerMaterial() ">
+                        <div class="form-group row ">
+                            <label for="exampleInputuname3 " class="col-sm-3 control-label ">Código de barra</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                    <input id="bar_code" formControlName="bar_code" name="bar_code" type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('bar_code').hasError('required') && formulario.get('bar_code').dirty }" placeholder="Código barra material">
+                                </div>
+                                <div *ngIf="formulario.get('bar_code').errors && formulario.get('bar_code').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('bar_code').hasError('required')">
+                                        <small>El código de barra es obligatorio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre Material</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon "><i class="ti-user"></i></div>
+                                    <input formControlName="name" name="name" type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('name').hasError('required') && formulario.get('name').dirty }" placeholder="Nombre material">
+                                </div>
+                                <div *ngIf="formulario.get('name').errors && formulario.get('name').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('name').hasError('required')">
+                                        <small>Nombre material es obligatorio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Tipo unidad</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon "><i class="ti-user"></i></div>
+                                    <!-- UNITY = 1; PACKAGE = 2; REAM = 3; SET = 4; BOX = 5; -->
+                                    <select formControlName="unity_type" name="unity_type" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('unity_type').hasError('required') && formulario.get('unity_type').dirty }" required>
+                                        <option value="">Seleccione tipo unidad</option>
+                                        <option value="1">Unidad</option>
+                                        <option value="2">Paquete</option>
+                                        <option value="3">Resma</option>
+                                        <option value="4">Set</option>
+                                        <option value="5">Caja</option>
+                                    </select>
+                                    <!-- <input formControlName="name" name="name" type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('name').hasError('required') && formulario.get('name').dirty }" placeholder="Nombre material"> -->
+                                </div>
+                                <div *ngIf="formulario.get('unity_type').errors && formulario.get('unity_type').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('unity_type').hasError('required')">
+                                        <small>Tipo material es obligatorio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0 ">
+                            <div class="offset-sm-3 col-sm-9 col-md-12 ">
+                                <button [disabled]="!formulario.valid" type="submit" class="btn btn-success btn-block waves-effect waves-light ">
+                                    <i class="fa fa-save "></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

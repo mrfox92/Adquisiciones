@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row justify-content-center animated fadeIn">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nuevo Departamento</h4>
+                    <h6 class="card-subtitle">utiliza este formulario para registrar un nuevo departamento</h6>
+                    <form ngNativeValidate [formGroup]="formulario" class="form-horizontal p-t-20" (ngSubmit)="registrarDepto()">
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon "><i class="ti-user"></i></div>
+                                    <input formControlName="name" name="name" type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('name').hasError('required') && formulario.get('name').dirty }" placeholder="Nombre proveedor">
+                                </div>
+                                <div *ngIf="formulario.get('name').errors && formulario.get('name').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('name').hasError('required')">
+                                        <small>Nombre proveedor es obligatorio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0 ">
+                            <div class="offset-sm-3 col-sm-9 col-md-12 ">
+                                <button [disabled]="!formulario.valid" type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                    <i class="fa fa-save "></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

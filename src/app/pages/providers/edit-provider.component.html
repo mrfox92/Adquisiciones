@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <div class="row justify-content-center animated fadeIn" *ngIf="provider">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Actualizar Proveedor</h4>
+                    <h6 class="card-subtitle">utiliza este formulario para actualizar la información de un proveedor</h6>
+                    <form #form="ngForm" lass="form-horizontal p-t-20" (ngSubmit)="actualizarProveedor( form )">
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Rut</label>
+                            <div class="col-sm-9 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-id-card-o "></i></div>
+                                    <input [(ngModel)]="provider.rut" name="rut" #rut="ngModel" type="text" required class="form-control" [ngClass]="{ 'is-invalid animated pulse': rut.invalid && ( rut.dirty || rut.touched ) }" placeholder="Ingrese rut">
+                                </div>
+                                <div *ngIf="rut.invalid && ( rut.dirty || rut.touched )" class="text-danger">
+                                    <small>El rut es requerido</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Nombre</label>
+                            <div class="col-sm-9 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user-o"></i></div>
+                                    <input [(ngModel)]="provider.name" name="name" #name="ngModel" required type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': name.invalid && ( name.dirty || name.touched ) }" placeholder="ingrese nombre">
+                                </div>
+                                <div *ngIf="name.invalid && ( name.dirty || name.touched )" class="text-danger">
+                                    <small>El nombre es requerido</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Dirección</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                                    <input [(ngModel)]="provider.address" name="address" #address="ngModel" type="text" required class="form-control" [ngClass]="{ 'is-invalid animated pulse': address.invalid && ( address.dirty || address.touched ) }" placeholder="Ingrese dirección">
+                                </div>
+                                <div *ngIf="address.invalid && ( address.dirty || address.touched )" class="text-danger">
+                                    <small>La dirección es requerida</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
+                                    <input [(ngModel)]="provider.email" name="email" #email="ngModel" required type="email" class="form-control" [ngClass]="{ 'is-invalid animated pulse': email.invalid && ( email.dirty || email.touched ) }" placeholder="Ingrese correo electrónico">
+                                </div>
+                                <div *ngIf="email.invalid && ( email.dirty || email.touched )" class="text-danger">
+                                    <small>El correo electrónico es requerido</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Sitio web</label>
+                            <div class="col-sm-9 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-globe"></i></div>
+                                    <input [(ngModel)]="provider.url_web" name="url_web" type="text" class="form-control" placeholder="Ingrese Url sitio web">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Fono contacto</label>
+                            <div class="col-sm-9 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                    <input [(ngModel)]="provider.phone" name="phone" #phone="ngModel" pattern="^[0-9\+]{8,12}" type="type" class="form-control" [ngClass]="{ 'is-invalid animated pulse': phone.errors?.pattern && ( phone.dirty || phone.touched ) }" placeholder="Ingrese N° contacto">
+                                </div>
+                                <div *ngIf="phone.errors?.pattern && ( phone.dirty || phone.touched )" class="text-danger">
+                                    <small>El N° contacto debe ser de mínimo 8 dígitos y máximo 12 dígitos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0">
+                            <div class="offset-sm-3 col-sm-9 col-md-12">
+                                <button [disabled]="!form.valid" type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                    <i class="fa fa-save "></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

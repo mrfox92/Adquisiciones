@@ -1,0 +1,167 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <a routerLink="/proveedores/agregar" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar proveedor</a>
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Agregar Nuevo
+                    </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+
+    <!-- Inicio Modal -->
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close pointer" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Rut:</label>
+                            <input name="rut" type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nombre:</label>
+                            <input name="name" type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Dirección:</label>
+                            <input name="address" type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Fin Modal -->
+
+    <div class="row my-2">
+        <div class="col-md-12">
+            <input #input (keyup)="buscarProveedor( input.value )" class="form-control" type="text" placeholder="Buscar proveedor">
+        </div>
+    </div>
+
+    <!-- inicio loading -->
+    <div class="row" *ngIf="loading">
+        <div class="col-md-12">
+            <div class="alert alert-warning text-center my-2">
+                <strong>Cargando</strong>
+                <br>
+                <i class="fa fa-spinner fa-spin fa-3x"></i>
+                <br>
+                <strong>Por favor espere</strong>
+            </div>
+        </div>
+    </div>
+    <!-- fin loading -->
+
+    <!-- inicio loading -->
+    <div class="row" *ngIf="!loading && providers.length === 0">
+        <div class="col-md-12">
+            <div class="alert alert-dark text-center my-2">
+                <i class="fa fa-stop-circle"></i> <span>No hay proveedores registrados</span>
+            </div>
+        </div>
+    </div>
+    <!-- fin loading -->
+
+    <div class="row" *ngIf="!loading && providers.length > 0">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-text">Proveedores registrados <small>( {{ total }} )</small></h3>
+                    <table class="table table-hover table-stripped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Rut</th>
+                                <th>Nombre</th>
+                                <th>Fecha creación</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let provider of providers">
+                                <td>{{ provider.id }}</td>
+                                <td>{{ provider.rut }}</td>
+                                <td>{{ provider.name }}</td>
+                                <td>{{ provider.created_at | date:'short' }}</td>
+                                <td class="w200">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + provider.id">
+                                    <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-primary mx-1"><i class="fa fa-archive"></i></button>
+                                    <button [routerLink]="['/proveedores/edit', provider.id]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button>
+                                    <button (click)="deleteProvider( provider )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" [id]="'modal' + provider.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Información contacto proveedor</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <span><i class="fa fa-user-circle-o"></i><strong> {{ provider.name }}</strong></span>
+                                                            <hr>
+                                                            <span><i class="fa fa-id-card-o"></i><strong> {{ provider.rut }}</strong></span>
+                                                            <hr>
+                                                            <span><i class="fa fa-map-marker"></i><strong> {{ provider.address }}</strong></span>
+                                                            <hr>
+                                                            <span><i class="fa fa-envelope-o"></i><strong> {{ provider.email }}</strong></span>
+                                                            <hr>
+                                                            <span *ngIf="provider.phone"><i class="fa fa-phone"></i><strong> {{ provider.phone }}</strong></span>
+                                                            <hr *ngIf="provider.phone">
+                                                            <a *ngIf="provider.url_web" class="btn btn-primary" [href]="provider.url_web" target="_blank">
+                                                                <i class="fa fa-globe"></i> Ver sitio web
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button [disabled]="!prevPageUrl" (click)="prevPage()" type="button" class="btn btn-success mr-1">
+                        <i class="fa fa-angle-double-left"></i> Anterior
+                    </button>
+                    <button [disabled]="!nextPageUrl" (click)="nextPage()" type="button" class="btn btn-success ml-1">
+                        Siguiente <i class="fa fa-angle-double-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

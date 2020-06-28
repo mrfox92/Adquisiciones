@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/service.index';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-account-settings',
@@ -35,6 +36,13 @@ export class AccountSettingsComponent implements OnInit {
 
     //  agregamos el check al anchor tag seleccionado
     link.classList.add('working');
+    //  enviamos una notificación
+    Swal.fire({
+      title: 'Tema cambiado',
+      text: 'has cambiado el tema',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    });
   }
 
   colocarCheck() {

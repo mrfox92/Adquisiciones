@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+//  Forms
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 import { PagesComponent } from './pages.component';
@@ -20,6 +21,22 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 //  directivas de angular
 import { CommonModule } from '@angular/common';
+import { UsersComponent } from './users/users.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { ProvidersComponent } from './providers/providers.component';
+import { CreateProviderComponent } from './providers/create-provider.component';
+import { EditProviderComponent } from './providers/edit-provider.component';
+import { DepartmentsComponent } from './departments/departments.component';
+import { CreateDepartmentComponent } from './departments/create-department.component';
+import { EditDepartmentComponent } from './departments/edit-department.component';
+import { OfficesComponent } from './offices/offices.component';
+import { CreateOfficeComponent } from './offices/create-office.component';
+import { EditOfficeComponent } from './offices/edit-office.component';
+import { InvoicesComponent } from './invoices/invoices.component';
+import { CreateInvoiceComponent } from './invoices/create-invoice.component';
+import { EditInvoiceComponent } from './invoices/edit-invoice.component';
+import { CreateMaterialComponent } from './materials/create-material.component';
+import { UpdateMaterialComponent } from './materials/update-material.component';
 
 
 @NgModule({
@@ -34,7 +51,23 @@ import { CommonModule } from '@angular/common';
         AccountSettingsComponent,
         PromesasComponent,
         RxjsComponent,
-        ProfileComponent
+        ProfileComponent,
+        UsersComponent,
+        MaterialsComponent,
+        ProvidersComponent,
+        CreateProviderComponent,
+        EditProviderComponent,
+        DepartmentsComponent,
+        CreateDepartmentComponent,
+        EditDepartmentComponent,
+        OfficesComponent,
+        CreateOfficeComponent,
+        EditOfficeComponent,
+        InvoicesComponent,
+        CreateInvoiceComponent,
+        EditInvoiceComponent,
+        CreateMaterialComponent,
+        UpdateMaterialComponent
     ],
     exports: [
         DashboardComponent,
@@ -42,12 +75,13 @@ import { CommonModule } from '@angular/common';
         Graficas1Component,
     ],
     imports: [
+        CommonModule,
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
+        ReactiveFormsModule,
         ChartsModule,
         PipesModule,
-        CommonModule
     ]
 
 })

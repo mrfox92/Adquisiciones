@@ -1,0 +1,116 @@
+<div class="container-fluid">
+    <div class="row justify-content-center animated fadeIn">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nuevo Proveedor</h4>
+                    <h6 class="card-subtitle">utiliza este formulario para registrar un nuevo proveedor</h6>
+                    <form ngNativeValidate [formGroup]="formulario" class="form-horizontal p-t-20" (ngSubmit)="registrarProveedor() ">
+                        <div class="form-group row ">
+                            <label for="exampleInputuname3 " class="col-sm-3 control-label ">Rut</label>
+                            <div class="col-sm-9 ">
+                                <div class="input-group ">
+                                    <div class="input-group-addon "><i class="fa fa-id-card-o "></i></div>
+                                    <input id="rut" formControlName="rut" name="rut" type="text " class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('rut').hasError('required') && formulario.get('rut').dirty }" placeholder="Rut proveedor ej: 77123432-k">
+                                </div>
+                                <div *ngIf="formulario.get('rut').errors && formulario.get('rut').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('rut').hasError('required')">
+                                        <small>Rut proveedor es obligatorio</small>
+                                    </div>
+                                    <div *ngIf="formulario.get('rut').hasError('pattern')">
+                                        <small>Ingrese rut proveedor sin puntos</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon "><i class="ti-user"></i></div>
+                                    <input formControlName="name" name="name" type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('name').hasError('required') && formulario.get('name').dirty }" placeholder="Nombre proveedor">
+                                </div>
+                                <div *ngIf="formulario.get('name').errors && formulario.get('name').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('name').hasError('required')">
+                                        <small>Nombre proveedor es obligatorio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Dirección </label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                    <input formControlName="address" name="address" type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('address').hasError('required') && formulario.get('address').dirty }" placeholder="Dirección proveedor">
+                                </div>
+                                <div *ngIf="formulario.get('address').errors && formulario.get('address').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('address').hasError('required')">
+                                        <small>La dirección es obligatoria</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputEmail3" class="col-sm-3 control-label">Correo electrónico</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input formControlName="email" required name="email" type="email" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('email').hasError('required') && formulario.get('email').dirty }" placeholder="Ingrese correo electrónico">
+                                </div>
+                                <div *ngIf="formulario.get('email').errors && formulario.get('email').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('email').hasError('required')">
+                                        <small>Email es obligatorio</small>
+                                    </div>
+
+                                    <div *ngIf="formulario.get('email').hasError('email')">
+                                        <small>Debe ingresar un formato válido de email</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="web" class="col-sm-3 control-label">Sitio web <small>(opcional)</small> </label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-world"></i></div>
+                                    <input formControlName="url_web" name="url_web" type="text" class="form-control" placeholder="Ingrese nombre sitio web">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="web" class="col-sm-3 control-label ">Fono <small>(opcional)</small> </label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                    <input formControlName="phone" name="phone" type="number" class="form-control" [ngClass]="{ 'is-invalid animated pulse': formulario.get('phone').hasError('pattern') && formulario.get('phone').dirty }" placeholder="Ingrese fono contacto">
+                                </div>
+                                <div *ngIf="formulario.get('phone').errors && formulario.get('phone').dirty" class="text-danger">
+
+                                    <div *ngIf="formulario.get('phone').hasError('pattern')">
+                                        Solo debe ingresar números
+                                    </div>
+
+                                    <div *ngIf="formulario.get('phone').hasError('minLength')">
+                                        El número de contacto debe tener como mínimo 8 dígitos
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0 ">
+                            <div class="offset-sm-3 col-sm-9 col-md-12 ">
+                                <button [disabled]="!formulario.valid" type="submit" class="btn btn-success btn-block waves-effect waves-light ">
+                                    <i class="fa fa-save "></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

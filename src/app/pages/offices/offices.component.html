@@ -1,0 +1,78 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <button routerLink="/oficinas/agregar" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> Agregar Oficina
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row animated fadeIn my-2">
+        <div class="col-md-12">
+            <input #busqueda (keyup)="buscarProveedor( busqueda.value )" type="text" class="form-control" placeholder="Buscar oficina">
+        </div>
+    </div>
+
+    <div class="row animated fadeIn" *ngIf="loading && offices.length === 0">
+        <div class="col-md-12 my-2">
+            <div class="alert alert-warning text-center">
+                <strong>Cargando</strong>
+                <br>
+                <i class="fa fa-spinner fa-spin fa-3x"></i>
+                <br>
+                <strong>Por favor espere</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn my-2" *ngIf="!loading && offices.length !== 0">
+        <div class="col-md-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-text">
+                        Oficinas registradas <small>( {{ total }} )</small>
+                    </h3>
+                    <table class="table table-hover table-stripee">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Oficina</th>
+                                <th>ID Depto</th>
+                                <th>Departamento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let office of offices">
+                                <td>{{ office.id }}</td>
+                                <td>{{ office.name }}</td>
+                                <td>{{ office.department_id }}</td>
+                                <td>{{ office.department.name }}</td>
+                                <td class="w200">
+                                    <!-- Mostrar info departamento y oficinas que pertenecen a ese departamento -->
+                                    <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button>
+                                    <!-- <button [routerLink]="['/departamentos/editar', office.id ]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button> -->
+                                    <!-- Permitir añadir una nueva oficina para ese departamento -->
+                                    <button [routerLink]="['/oficinas/editar', office.id]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button>
+                                    <button (click)="deleteOffice( office )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button [disabled]="!prevPageUrl" (click)="prevPage()" class="btn btn-success mr-1">
+                        <i class="fa fa-angle-double-left"></i> Anterior
+                    </button>
+                    <button [disabled]="!nextPageUrl" (click)="nextPage()" class="btn btn-success ml-1">
+                        Siguiente <i class="fa fa-angle-double-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

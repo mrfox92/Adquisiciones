@@ -1,0 +1,98 @@
+<div class="container-fluid">
+
+    <div class="row animated fadeIn">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <a routerLink="/materiales/agregar" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Material</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <input #busqueda (keyup)="buscarMaterial( busqueda.value )" class="form-control" type="text" name="search" placeholder="Buscar material">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn" *ngIf="loading">
+        <div class="col-md-12">
+            <div class="alert alert-warning text-center">
+                <strong>Loading</strong>
+                <br>
+                <i class="fa fa-spinner fa-spin fa-3x"></i>
+                <br>
+                <strong>espere por favor</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="animated fadeIn" *ngIf="materials.length === 0 && !loading">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay resultados</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn" *ngIf="!loading && materials.length > 0">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Materiales Registrados ( <small>{{ total }}</small> )</h3>
+                    <table class="table table-hover table-stripped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Cod Barra</th>
+                                <th>Material</th>
+                                <th>Tipo Unidad</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let material of materials">
+                                <td>{{ material.id }}</td>
+                                <td>
+                                    <img [src]="material.picture | image:'material'" class="img-thumbnail w70" alt="">
+                                </td>
+                                <td>{{ material.bar_code }}</td>
+                                <!-- <td>{{ material.acquisition_id }}</td> -->
+                                <td>{{ material.name }}</td>
+                                <td>
+                                    <!-- UNITY = 1; PACKAGE = 2; REAM = 3; SET = 4; BOX = 5; -->
+                                    <span *ngIf="material.unity_type === '1'" class="badge badge-success">Unidad</span>
+                                    <span *ngIf="material.unity_type === '2'" class="badge badge-info">Paquete</span>
+                                    <span *ngIf="material.unity_type === '3'" class="badge badge-secondary">Resma</span>
+                                    <span *ngIf="material.unity_type === '4'" class="badge badge-danger">Set</span>
+                                    <span *ngIf="material.unity_type === '5'" class="badge badge-purple">Caja</span>
+                                </td>
+                                <td>{{ material.stock }}</td>
+                                <td class="w200">
+                                    <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button>
+                                    <button [routerLink]="['/materiales/edit', material.id ]" class="btn btn-primary mx-1"><i class="fa fa-save"></i></button>
+                                    <button (click)="deleteMaterial( material )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- inicio paginación resultados -->
+                    <button [disabled]="!prevPageUrl" (click)="prevPage()" class="btn btn-success m-1">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i> Anterior
+                    </button>
+                    <button [disabled]="!nextPageUrl" (click)="nextPage()" class="btn btn-success m-1">
+                        Siguiente <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </button>
+                    <!-- fin paginación resultados -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

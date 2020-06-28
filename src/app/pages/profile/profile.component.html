@@ -33,14 +33,16 @@
         </div>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-md-5">
         <div class="card">
             <div class="card-body text-center">
                 <h4 class="card-title">Avatar del usuario</h4>
                 <h6 class="card-subtitle">{{ user.name }} {{ user.last_name }}</h6>
                 <img *ngIf="!tempImage" class="img-thumbnail w150" [src]="user.avatar | image" alt="">
                 <img *ngIf="tempImage" class="img-thumbnail w150" [src]="tempImage" alt="">
-                <input (change)="seleccionarImage( $event.target.files[0] )" class="my-2" type="file" name="file0">
+                <div class="form-group">
+                    <input (change)="seleccionarImage( $event.target.files[0] )" class="my-2" type="file" name="file0">
+                </div>
                 <button (click)="cambiarImagen()" [disabled]="!imageUpload" type="button" class="btn btn-success waves-effect waves-light m-r-10 my-2 btn-block"><i class="fa fa-save"></i>  Actualizar Avatar</button>
             </div>
         </div>

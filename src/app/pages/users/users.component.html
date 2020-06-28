@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <!-- inicio busqueda -->
+    <div class="row animated fadeIn">
+        <div class="col-md-12">
+            <div class="carda">
+                <div class="card-body">
+                    <input #input (keyup)="searchUser( input.value )" class="form-control" type="text" placeholder="Buscar">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fin busqueda -->
+
+
+    <div class="row animated fadeIn" *ngIf="loading">
+        <div class="col-md-12">
+            <div class="div alert alert-warning text-center">
+                <strong>Cargando</strong>
+                <br>
+                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                <br>
+                <strong>Por favor espere</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="animated fadeIn" *ngIf="users.length === 0 && !loading">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay resultados</strong>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row animated fadeIn" *ngIf="!loading && users.length > 0">
+        <div class="col-md-12">
+            <div class="div card">
+                <div class="card-body">
+                    <h3 class="card-title">Usuarios registrados ( <small>{{ total }}</small> )</h3>
+
+                    <!-- Inicio tabla -->
+                    <table class="table table-hove table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Role</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users">
+                                <td>{{ user.id }}</td>
+                                <td class="w70">
+                                    <img class="img-thumbnail w50" [src]="user.avatar | image" alt="">
+                                </td>
+                                <td>{{ user.name | name:user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    <select [(ngModel)]="user.role_id" name="role" class="form-control">
+                                        <option [ngValue]="1">Admin</option>
+                                        <option [ngValue]="2">Adquisiciones</option>
+                                        <option [ngValue]="3">Despachador</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button (click)="guardarUsuario( user )" class="btn btn-primary m-1">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+
+                                    <button (click)="borrarUsuario( user )" class="btn btn-danger m-1">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Fin tabla -->
+
+                    <!-- Inicio Paginación -->
+
+                    <button [disabled]="!prevPageUrl" (click)="prevPage()" class="btn btn-outline-success mr-1">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i> Anteriores
+                    </button>
+                    <button [disabled]="!nextPageUrl" (click)="nextPage()" class="btn btn-outline-success ml-1">
+                        Siguientes <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </button>
+                    <!-- Fin Paginación -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

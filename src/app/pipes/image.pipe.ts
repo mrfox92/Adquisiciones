@@ -11,7 +11,8 @@ export class ImagePipe implements PipeTransform {
     let url = `${ URL_SERVICES }`;
 
     if ( !img ) {
-      return `${ url }/user/image/notfound`;
+      //  imagen por defecto si es nula
+      return `assets/images/no-image/no-profile-image.png`;
     }
 
     switch (tipo) {
@@ -19,7 +20,7 @@ export class ImagePipe implements PipeTransform {
         url += `/user/image/${ img }`;
         break;
       case 'material':
-        url += `/material/image/${ img }`;
+        url += `/materials/image/${ img }`;
         break;
       default:
         console.log('Tipo de imagen no existe, usuarios, materiales');

@@ -9,6 +9,22 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { LoginGuardGuard } from '../services/service.index';
+import { UsersComponent } from './users/users.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { ProvidersComponent } from './providers/providers.component';
+import { CreateProviderComponent } from './providers/create-provider.component';
+import { EditProviderComponent } from './providers/edit-provider.component';
+import { DepartmentsComponent } from './departments/departments.component';
+import { CreateDepartmentComponent } from './departments/create-department.component';
+import { EditDepartmentComponent } from './departments/edit-department.component';
+import { OfficesComponent } from './offices/offices.component';
+import { CreateOfficeComponent } from './offices/create-office.component';
+import { EditOfficeComponent } from './offices/edit-office.component';
+import { InvoicesComponent } from './invoices/invoices.component';
+import { CreateInvoiceComponent } from './invoices/create-invoice.component';
+import { EditInvoiceComponent } from './invoices/edit-invoice.component';
+import { CreateMaterialComponent } from './materials/create-material.component';
+import { UpdateMaterialComponent } from './materials/update-material.component';
 
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
@@ -26,6 +42,23 @@ const pagesRoutes: Routes = [
                 { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
                 { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes del Tema' } },
                 { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
+                //  Mantenimientos
+                { path: 'usuarios', component: UsersComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
+                { path: 'materiales', component: MaterialsComponent, data: { titulo: 'Mantenimiento de Materiales' } },
+                { path: 'materiales/agregar', component: CreateMaterialComponent, data: { titulo: 'Registrar nuevo material' } },
+                { path: 'materiales/edit/:id', component: UpdateMaterialComponent, data: { titulo: 'Editar Material' } },
+                { path: 'departamentos', component: DepartmentsComponent, data: { titulo: 'Mantenimiento de Departamentos' } },
+                { path: 'oficinas', component: OfficesComponent, data: { titulo: 'Mantenimiento de oficinas' } },
+                { path: 'oficinas/agregar', component: CreateOfficeComponent, data: { titulo: 'Registrar nueva oficina' } },
+                { path: 'oficinas/editar/:id', component: EditOfficeComponent, data: { titulo: 'Editar oficina' } },
+                { path: 'departamentos/agregar', component: CreateDepartmentComponent, data: { titulo: 'Registrar nuevo departamento' } },
+                { path: 'departamentos/editar/:id', component: EditDepartmentComponent, data: { titulo: 'Editar departamento' } },
+                { path: 'proveedores', component: ProvidersComponent, data: { titulo: 'Mantenimiento de Proveedores' } },
+                { path: 'proveedores/agregar', component: CreateProviderComponent, data: { titulo: 'Registrar nuevo proveedor' } },
+                { path: 'proveedores/edit/:id', component: EditProviderComponent, data: { titulo: 'Editar proveedor' } },
+                { path: 'facturas', component: InvoicesComponent, data: { titulo: 'Mantenimiento de facturas' } },
+                { path: 'facturas/agregar', component: CreateInvoiceComponent, data: { titulo: 'Registrar nueva factura' } },
+                { path: 'facturas/edit/:id', component: EditInvoiceComponent, data: { titulo: 'Editar factura' } },
                 { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             ]
         }

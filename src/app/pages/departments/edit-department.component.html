@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row justify-content-center animated fadeIn">
+        <div class="col-md-8">
+            <div class="card" *ngIf="department">
+                <div class="card-body">
+                    <h4 class="card-title">Editar Departamento</h4>
+                    <h6 class="card-subtitle">utiliza este formulario para actualizar la información de un departamento</h6>
+                    <form #form="ngForm" class="form-horizontal p-t-20" (ngSubmit)="updateDepto( form )">
+                        <div class="form-group row">
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon "><i class="ti-user"></i></div>
+                                    <input [(ngModel)]="department.name" #name="ngModel" name="name" required type="text" class="form-control" [ngClass]="{ 'is-invalid animated pulse': name.invalid && ( name.dirty || name.touched ) }" placeholder="Nombre proveedor">
+                                </div>
+                                <div *ngIf="name.invalid && ( name.dirty || name.touched )" class="text-danger">
+                                    <div *ngIf="name.errors.required">
+                                        <small>El nombre es obligatorio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0 ">
+                            <div class="offset-sm-3 col-sm-9 col-md-12 ">
+                                <button [disabled]="form.invalid" type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                    <i class="fa fa-save"></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
