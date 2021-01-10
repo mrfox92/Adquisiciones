@@ -46,6 +46,14 @@ export class InvoicesService {
     return this.http.get( url );
   }
 
+
+  //  metodo para obtener todas las facturas pertenecientes a un proveedor a partir de su ID
+  getInvoicesProvider( providerId: number ) {
+    //  http://acquisitions.cl/api/invoices/provider/140
+    let url = `${ URL_SERVICES }/invoices/provider/${ providerId }`;
+    return this.http.get( url );
+  }
+
   createInvoice( invoice: Invoice ) {
     //  http://acquisitions.cl/api/invoices
     let url = `${ URL_SERVICES }/invoices`;

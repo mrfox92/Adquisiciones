@@ -1,0 +1,32 @@
+<div class="container-fluid" *ngIf="materialOrder && order">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Detalle orden n° {{ order.num_order }}</h4>
+                <h6 class="card-subtitle">A continuación se muestran los materiales pertenecientes a la orden n° {{ order.num_order }}</h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cod Barra</th>
+                                <th>Material</th>
+                                <th>Cantidad</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let material of materialOrder">
+                                <td>{{ material.id }}</td>
+                                <td>{{ material.material.bar_code }}</td>
+                                <td>{{ material.material.name }}</td>
+                                <td>{{ material.quantity }}</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ material.created_at | date:'short' }}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

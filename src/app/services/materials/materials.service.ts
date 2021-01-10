@@ -23,6 +23,13 @@ export class MaterialsService {
     return this.http.get( url );
   }
 
+  getAllMaterials() {
+    //  http://acquisitions.cl/api/materials/material/list
+    let url = `${ URL_SERVICES }/materials/material/list`;
+
+    return this.http.get( url );
+  }
+
   getMaterialDetail( materialId: number ) {
     //  http://acquisitions.cl/api/materials/2
     let url = `${ URL_SERVICES }/materials/${ materialId }`;

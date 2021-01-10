@@ -13,7 +13,8 @@ import { SettingsService,
   DepartmentsService,
   OfficesService,
   InvoicesService,
-  AcquisitionsService
+  AcquisitionsService,
+  OrdersService
 } from './service.index';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SettingsService,
     DepartmentsService,
     OfficesService,
     InvoicesService,
-    AcquisitionsService
+    AcquisitionsService,
+    OrdersService
   ]
 })
 export class ServiceModule { }

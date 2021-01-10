@@ -9,17 +9,6 @@ export class SidebarService {
 
   public menu: any = [
     {
-      titulo: 'Principal',
-      icono: 'mdi mdi-gauge',
-      submenu: [
-        { titulo: 'Dashboard', url: '/dashboard' },
-        { titulo: 'ProgressBar', url: '/progress' },
-        { titulo: 'Graficas', url: '/graficas1' },
-        { titulo: 'Promesas', url: '/promesas' },
-        { titulo: 'RxJs', url: '/rxjs' }
-      ]
-    },
-    {
       titulo: 'Mantenimientos',
       icono: 'mdi mdi-book-open',
       submenu: [

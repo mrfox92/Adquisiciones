@@ -25,6 +25,11 @@ import { CreateInvoiceComponent } from './invoices/create-invoice.component';
 import { EditInvoiceComponent } from './invoices/edit-invoice.component';
 import { CreateMaterialComponent } from './materials/create-material.component';
 import { UpdateMaterialComponent } from './materials/update-material.component';
+import { OrdersComponent } from './orders/orders.component';
+import { CreateOrderComponent } from './orders/create-order.component';
+import { EditOrderComponent } from './orders/edit-order.component';
+import { ShowOrderDetailComponent } from './orders/show-order-detail.component';
+import { MaterialRegisterComponent } from './material-register/material-register.component';
 
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
@@ -44,9 +49,14 @@ const pagesRoutes: Routes = [
                 { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
                 //  Mantenimientos
                 { path: 'usuarios', component: UsersComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
+                { path: 'ingresos', component: MaterialRegisterComponent, data: { titulo: 'Ingreso de materiales' } },
                 { path: 'materiales', component: MaterialsComponent, data: { titulo: 'Mantenimiento de Materiales' } },
                 { path: 'materiales/agregar', component: CreateMaterialComponent, data: { titulo: 'Registrar nuevo material' } },
                 { path: 'materiales/edit/:id', component: UpdateMaterialComponent, data: { titulo: 'Editar Material' } },
+                { path: 'ordenes', component: OrdersComponent, data: { titulo: 'Mantenimiento de ordenes despacho' } },
+                { path: 'ordenes/agregar', component: CreateOrderComponent, data: { titulo: 'Regisrar nueva orden' } },
+                { path: 'ordenes/edit/:id', component: EditOrderComponent, data: { titulo: 'Editar orden' } },
+                { path: 'ordenes/detail/:id', component: ShowOrderDetailComponent, data: { titulo: 'Detalle orden' } },
                 { path: 'departamentos', component: DepartmentsComponent, data: { titulo: 'Mantenimiento de Departamentos' } },
                 { path: 'oficinas', component: OfficesComponent, data: { titulo: 'Mantenimiento de oficinas' } },
                 { path: 'oficinas/agregar', component: CreateOfficeComponent, data: { titulo: 'Registrar nueva oficina' } },

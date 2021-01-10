@@ -11,5 +11,6 @@ export { DepartmentsService } from './departments/departments.service';
 export { OfficesService } from './offices/offices.service';
 export { InvoicesService } from './invoices/invoices.service';
 export { AcquisitionsService } from './acquisitions/acquisitions.service';
+export { OrdersService } from './orders/orders.service';
 
 

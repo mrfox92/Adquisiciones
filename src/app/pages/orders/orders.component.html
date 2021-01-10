@@ -1,0 +1,85 @@
+<div class="container-fluid">
+
+    <div class="row animated fadeIn">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <input #busqueda (keyup)="buscarOrden( busqueda.value )" class="form-control" type="text" placeholder="Buscar orden despacho">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn" *ngIf="loading">
+        <div class="col-md-12">
+            <div class="alert alert-warning text-center">
+                <strong>Cargando</strong>
+                <br>
+                <i class="fa fa-spinner fa-spin fa-3x"></i>
+                <br>
+                <strong>por favor espere</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="animated fadeIn" *ngIf="orders.length === 0 && !loading">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay resultados</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn justify-content-center" *ngIf="!loading && orders.length > 0">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-text">Ordenes registradas <small>( {{ total }} )</small></h3>
+                    <table class="table table-hover table-stripped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>N° orden</th>
+                                <!-- <th>Despachador</th> -->
+                                <th>Oficina</th>
+                                <th>Estado orden</th>
+                                <th>Nombre responsable retiro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders">
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.num_order }}</td>
+                                <!-- <td>{{ order.dispatcher.user.id }}</td> -->
+                                <td>{{ order.office.name }}</td>
+                                <!-- <td>{{ order.status }}</td> -->
+                                <td class="w200">
+                                    <select [(ngModel)]="order.status" class="form-control">
+                                        <option [value]="1">Iniciada</option>
+                                        <option [value]="2">Procesando</option>
+                                        <option [value]="3">Finalizada</option>
+                                    </select>
+                                </td>
+                                <td>{{ order.name_responsible }}</td>
+                                <td class="w200">
+                                    <!-- Mostrar listado materiales registrados para esa orden -->
+                                    <button [routerLink]="['/ordenes/detail', order.id]" class="btn btn-success mx-1"><i class="fa fa-eye"></i></button>
+                                    <button (click)="changeStatus( order )" class="btn btn-primary mx-1"><i class="fa fa-save"></i></button>
+                                    <button class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- paginacion -->
+                    <button [disabled]="!prevPageUrl" (click)="prevPage()" class="btn btn-success mr-1">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i> Anterior
+                    </button>
+                    <button [disabled]="!nextPageUrl" (click)="nextPage()" class="btn btn-success">
+                        Siguiente <i class="fa fa-angle-double-right ml-1" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

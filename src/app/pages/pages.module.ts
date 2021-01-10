@@ -3,6 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
+//  Ng2-completer
+import { Ng2CompleterModule } from 'ng2-completer';
+//  Ng-Wizard
+import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+//  theme ng wizard
+const ngWizardConfig: NgWizardConfig = {
+    theme: THEME.default
+  };
+
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -37,6 +46,12 @@ import { CreateInvoiceComponent } from './invoices/create-invoice.component';
 import { EditInvoiceComponent } from './invoices/edit-invoice.component';
 import { CreateMaterialComponent } from './materials/create-material.component';
 import { UpdateMaterialComponent } from './materials/update-material.component';
+import { OrdersComponent } from './orders/orders.component';
+import { CreateOrderComponent } from './orders/create-order.component';
+import { EditOrderComponent } from './orders/edit-order.component';
+import { ShowOrderDetailComponent } from './orders/show-order-detail.component';
+import { MaterialRegisterComponent } from './material-register/material-register.component';
+import { MaterialRegisterCreateComponent } from './material-register/material-register-create.component';
 
 
 @NgModule({
@@ -67,7 +82,13 @@ import { UpdateMaterialComponent } from './materials/update-material.component';
         CreateInvoiceComponent,
         EditInvoiceComponent,
         CreateMaterialComponent,
-        UpdateMaterialComponent
+        UpdateMaterialComponent,
+        OrdersComponent,
+        CreateOrderComponent,
+        EditOrderComponent,
+        ShowOrderDetailComponent,
+        MaterialRegisterComponent,
+        MaterialRegisterCreateComponent
     ],
     exports: [
         DashboardComponent,
@@ -82,6 +103,8 @@ import { UpdateMaterialComponent } from './materials/update-material.component';
         ReactiveFormsModule,
         ChartsModule,
         PipesModule,
+        Ng2CompleterModule,
+        NgWizardModule.forRoot(ngWizardConfig)
     ]
 
 })

@@ -1,0 +1,178 @@
+<div class="container">
+
+    <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
+
+        <ng-wizard-step [title]="'Proveedor'" [description]="'Seleccionar proveedor'">
+            <div class="row animated fadeIn justify-content-center" *ngIf="providers">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Proveedor</h4>
+                            <h6 class="card-subtitle">utiliza este formulario seleccionar un proveedor desde la lista</h6>
+                            <form ngNativeValidate #f="ngForm" class="form-horizontal p-t-20" (ngSubmit)="seleccionarProveedor( f.value ) ">
+                                <div class="form-group row">
+                                    <div class="form-group col-md-12">
+                                        <select ngModel name="provider" class="form-control" required>
+                                            <option value="">Seleccionar proveedor</option>
+                                            <option *ngFor="let provider of providers" [ngValue]="provider">{{ provider.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row m-b-0 ">
+                                    <div class="offset-sm-12 col-sm-12 col-md-12 my-2">
+                                        <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                            Seleccionar <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-wizard-step>
+
+        <ng-wizard-step [title]="'Factura'" [description]="'Seleccionar factura'">
+            <div class="row animated fadeIn justify-content-center" *ngIf="invoices">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Factura</h4>
+                            <h6 class="card-subtitle">utiliza este formulario seleccionar una factura desde la lista</h6>
+                            <div class="alert alert-danger my-2" *ngIf="invoices.length === 0">
+                                <h3>No hay facturas registradas</h3>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    Registrar factura
+                                </button>
+                            </div>
+                            <form ngNativeValidate #f="ngForm" class="form-horizontal p-t-20" (ngSubmit)="seleccionarFactura( f.value ) " *ngIf="invoices.length >= 1">
+                                <div class="form-group row">
+                                    <div class="form-group col-md-12">
+                                        <select ngModel name="invoice" class="form-control" required>
+                                            <option value="">Seleccionar factura</option>
+                                            <option *ngFor="let invoice of invoices" [ngValue]="invoice">{{ invoice.invoice_number }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row m-b-0 ">
+                                    <div class="offset-sm-12 col-sm-12 col-md-12 my-2">
+                                        <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                            Seleccionar <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-wizard-step>
+
+        <!-- Inicio Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 *ngIf="provider" class="modal-title" id="exampleModalLabel">{{ provider.name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <form ngNativeValidate #f="ngForm" class="form-horizontal p-t-20" (ngSubmit)="registrarFactura( f ) " *ngIf="providers && provider">
+                            <div class="form-group row">
+                                <div class="form-group col-md-12">
+                                    <input disabled [(ngModel)]="provider.name" type="text" name="provider" class="form-control">
+                                    <!-- <select #mySelect [(ngModel)]="provider.id" name="provider" class="form-control" required>
+                                        <option value="">Seleccionar proveedor</option>
+                                        <option *ngFor="let provider of providers" [ngValue]="provider.id">{{ provider.name }}</option>
+                                    </select> -->
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input [(ngModel)]="newInvoice.invoice_number" #invoice_num class="form-control" type="number" name="invoice_number" placeholder="Ingrese N° factura" required>
+                                    <!-- <input [(ngModel)]="newInvoice.invoice_number" #invoice_num="ngModel" name="invoice_num" type="number" class="form-control" placeholder="Ingrese N° factura" required> -->
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Modal -->
+
+        <ng-wizard-step [title]="'Material(es) factura'" [description]="'Ingreso stock materiales factura'">
+            <!-- <span>Step 3 content</span> -->
+            <div class="row animated fadeIn justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Nuevo Ingreso material(es) factura <span class="badge badge-info" *ngIf="invoice">N° {{ invoice.invoice_number }}</span><span class="text-muted" *ngIf="provider"> {{ provider.name }}</span></h4>
+                            <h6 class="card-subtitle">utiliza este formulario para registrar stock entrante materiales</h6>
+                            <form ngNativeValidate [formGroup]="formulario" class="form-horizontal p-t-20" (ngSubmit)="registrarIngresoMaterial() ">
+                                <ng-container *ngFor="let materialFormGroup of formulario.controls; let i = index">
+                                    <div [formGroup]="materialFormGroup">
+
+                                        <div class="form-group row">
+                                            <div class="form-group col-md-3">
+                                                <div class="col-sm-12">
+                                                    <ng2-completer [inputClass]="['form-control']" formControlName="material" [placeholder]="'Leer código barra'" [datasource]="dataService" [minSearchLength]="3"></ng2-completer>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <div class="col-sm-12">
+                                                    <input formControlName="quantity" name="quantity" type="number" class="form-control" placeholder="cantidad">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <div class="col-sm-12">
+                                                    <input (keyup)="calcularCosto(i)" formControlName="unity_cost" name="unity_cost" type="number" class="form-control" placeholder="Precio unitario">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <div class="col-sm-12">
+                                                    <input formControlName="total_cost" name="total_cost" type="number" class="form-control" placeholder="Total">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <div class="col-sm-12">
+                                                    <input formControlName="iva" name="iva" type="number" class="form-control" placeholder="IVA">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-1" *ngIf="i >= 1">
+                                                <div class="col-sm-12">
+                                                    <button (click)="removeGroup(i)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <div class="form-group row m-b-0 ">
+                                    <div class="offset-sm-6 col-sm-6 col-md-6 my-2">
+                                        <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                            <i class="fa fa-save "></i> Guardar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 my-2">
+                                        <button (click)="addMaterial()" type="button" class="btn btn-info btn-block"><i class="fa fa-truck"></i> Agregar material</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-wizard-step>
+
+    </ng-wizard>
+
+</div>
