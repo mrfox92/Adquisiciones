@@ -1,0 +1,40 @@
+<!-- <h3>Inventario</h3> -->
+
+<div class="row animated fadeIn" *ngIf="loading">
+  <div class="col-md-12">
+      <div class="alert alert-warning text-center">
+          <strong>Loading</strong>
+          <br>
+          <i class="fa fa-spinner fa-spin fa-3x"></i>
+          <br>
+          <strong>espere por favor</strong>
+      </div>
+  </div>
+</div>
+
+<div class="animated fadeIn" *ngIf="materials.length === 0 && !loading">
+  <div class="col-md-12">
+      <div class="alert alert-danger">
+          <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay resultados</strong>
+      </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 g-4" *ngIf="materials.length > 0">
+  <div class="col-md-3" *ngFor="let material of materials">
+    <div class="card">
+      <img [routerLink]="['/inventario/detail', material.id ]" [src]="material.picture | image:'material'" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ material.name }}</h5>
+        <p class="card-text">
+          <span *ngIf="material.unity_type === '1'" class="badge badge-success">Unidad</span>
+          <span *ngIf="material.unity_type === '2'" class="badge badge-info">Paquete</span>
+          <span *ngIf="material.unity_type === '3'" class="badge badge-secondary">Resma</span>
+          <span *ngIf="material.unity_type === '4'" class="badge badge-danger">Set</span>
+          <span *ngIf="material.unity_type === '5'" class="badge badge-purple">Caja</span>
+        </p>
+        <p class="card-text"><small class="text-muted">Stock: {{ material.stock }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>

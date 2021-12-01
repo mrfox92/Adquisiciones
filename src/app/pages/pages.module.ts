@@ -52,6 +52,13 @@ import { EditOrderComponent } from './orders/edit-order.component';
 import { ShowOrderDetailComponent } from './orders/show-order-detail.component';
 import { MaterialRegisterComponent } from './material-register/material-register.component';
 import { MaterialRegisterCreateComponent } from './material-register/material-register-create.component';
+import { DispatchersComponent } from './dispatchers/dispatchers.component';
+import { StocktakingComponent } from './dispatchers/stocktaking.component';
+import { MaterialComponent } from './dispatchers/material.component';
+import { OrderComponent } from './dispatchers/order.component';
+import { CheckoutComponent } from './dispatchers/checkout.component';
+import { MyOrdersComponent } from './dispatchers/my-orders.component';
+import { SearchMaterialComponent } from './dispatchers/search-material.component';
 
 
 @NgModule({
@@ -88,7 +95,14 @@ import { MaterialRegisterCreateComponent } from './material-register/material-re
         EditOrderComponent,
         ShowOrderDetailComponent,
         MaterialRegisterComponent,
-        MaterialRegisterCreateComponent
+        MaterialRegisterCreateComponent,
+        DispatchersComponent,
+        StocktakingComponent,
+        MaterialComponent,
+        OrderComponent,
+        CheckoutComponent,
+        MyOrdersComponent,
+        SearchMaterialComponent
     ],
     exports: [
         DashboardComponent,

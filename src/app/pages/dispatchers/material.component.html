@@ -1,0 +1,47 @@
+<div class="row animated fadeIn" *ngIf="loading">
+    <div class="col-md-12">
+        <div class="alert alert-warning text-center">
+            <strong>Loading</strong>
+            <br>
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+            <br>
+            <strong>espere por favor...</strong>
+        </div>
+    </div>
+  </div>
+
+<div class="row" *ngIf="!loading">
+    <div class="col-md-6">
+        <div class="card animated fadeIn">
+        <img [src]="material.picture | image:'material'" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ material.name }}</h5>
+          <span class="badge badge-success">Stock: {{ material.stock }}</span>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <form autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardar()" class="form p-t-20">
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="validationServer03">Cantidad material</label>
+                <input 
+                    type="number"
+                    class="form-control is-invalid" 
+                    id="validationServer03" 
+                    placeholder="ingrese" 
+                    placeholder="Ingrese cantidad stock"
+                    [class.is-invalid]="invalidQty"
+                    [class.is-valid]="validQty"
+                    formControlName="cantidad"
+                >
+                <div *ngIf="invalidQty" class="invalid-feedback">
+                    Debe ingresar una cantidad válida
+                </div>
+            </div>
+        </div>
+
+        <button [disabled]="formulario.invalid" type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Agregar carrito</button>
+    </form>
+</div>
+</div>

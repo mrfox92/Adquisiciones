@@ -1,0 +1,6 @@
+<a *ngFor="let item of items">
+    <div class="user-img"> <img [src]="item.material.picture | image:'material'" alt="user" class="img-thumbnail"> <span class="profile-status online pull-right"></span> </div>
+    <div class="mail-contnet">
+        <h5>{{ item.material.name }}</h5> <span class="mail-desc">Cantidad: {{ item.quantity }}</span> <span class="time">N° orden: {{ item.order_id }}</span>
+    </div>
+</a>

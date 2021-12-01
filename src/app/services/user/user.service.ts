@@ -3,7 +3,7 @@ import { User } from '../../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICES } from '../../config/config';
 import { Observable } from 'rxjs';
-import { map, debounceTime } from 'rxjs/operators';
+import { map, debounceTime, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UploadFileService } from '../upload-file/upload-file.service';
 import Swal from 'sweetalert2';
@@ -41,7 +41,15 @@ export class UserService {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post( url, params, { headers } );
+    return this.http.post( url, params, { headers } )
+      .pipe(
+        map( resp => resp ),
+        tap( (resp: any) => {
+          this.guardarStorage( resp.id, resp.token, resp.user, resp.menu );
+          //  leemos del storage
+          this.cargarStorage();
+        })
+      );
   }
 
   cargarStorage() {
@@ -59,10 +67,15 @@ export class UserService {
     }
   }
 
-  guardarStorage( id: string, token: string, user: User ) {
+  guardarStorage( id: string, token: string, user: User, menu?: any ) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify( user ) );
+
+    if ( menu ) {
+
+      localStorage.setItem('menu', JSON.stringify( menu ) );
+    }
   }
 
 
@@ -77,6 +90,7 @@ export class UserService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('id');
+    localStorage.removeItem('menu');
 
 
     this.router.navigate(['/login']);
@@ -102,10 +116,11 @@ export class UserService {
     return this.http.post( url, params, { headers } )
                     .pipe(
                       map( (resp: any) => {
+                        // console.log(resp);
 
                           if ( resp.status === 'success' ) {
                             //  grabamos en el storage
-                            this.guardarStorage( resp.id, resp.token, resp.user );
+                            this.guardarStorage( resp.id, resp.token, resp.user, resp.menu );
                             //  leemos del storage
                             this.cargarStorage();
                           }

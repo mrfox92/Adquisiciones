@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../services/shared/sidebar.service';
 
 //  declaramos el nombre de la función
 //  de esta forma podemos llamar cualquier script que se encuentre
@@ -14,11 +15,23 @@ declare function init_plugins();
 })
 export class PagesComponent implements OnInit {
 
-  constructor() { }
+  // isDispatcher: boolean = true;
+
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit(): void {
     //  inicializamos los plugins
     init_plugins();
+    //  cargamos el menu
+    this.sidebarService.cargarMenu();
+    console.log( this.sidebarService.menu );
   }
+
+
+  //  TODO: comprobar role usuario y desplegar header component de forma dinamica
+  //  header dispatchers
+  //  header admin, adquisiciones y guest
 
 }

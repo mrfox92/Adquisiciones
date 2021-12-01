@@ -1,0 +1,119 @@
+<div class="row animated fadeIn" *ngIf="loading">
+  <div class="col-md-12">
+    <div class="alert alert-warning text-center">
+      <strong>Loading</strong>
+      <br />
+      <i class="fa fa-spinner fa-spin fa-3x"></i>
+      <br />
+      <strong>espere por favor</strong>
+    </div>
+  </div>
+</div>
+
+<div class="animated fadeIn" *ngIf="orders.length === 0 && !loading">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      <strong
+        ><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay
+        resultados</strong
+      >
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="orders.length > 0">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-stripped table-hover">
+          <thead>
+            <tr>
+                <th>N° Orden</th>
+                <th>Oficina</th>
+                <th>Responsable retiro materiales</th>
+                <th>Fecha creación</th>
+                <th>Estado orden</th>
+                <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let order of orders">
+                <td>{{ order.id }}</td>
+                <td>
+                  <span
+                    *ngIf="order.offices[0]?.name === null"
+                    class="badge badge-secondary"
+                  >
+                    No especificada
+                  </span>
+                  <span
+                    *ngIf="order.offices[0]?.name !== null"
+                    class="badge badge-primary"
+                  >
+                    {{ order.offices[0].name }}
+                  </span>
+                </td>
+                <td>{{ order.name_responsible }}</td>
+                <td>{{ order.created_at | date: "dd-MM-yyyy" }}</td>
+                <td>
+                    <span *ngIf="order.status === '1'" class="badge badge-success">Iniciada</span>
+                    <span *ngIf="order.status === '2'" class="badge badge-info">Procesando</span>
+                    <span *ngIf="order.status === '3'" class="badge badge-secondary">Finalizada</span>
+                    <span *ngIf="order.status === '4'" class="badge badge-danger">Anulada</span>
+                </td>
+                <td width="200px">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + order.id">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fa fa-download"></i>
+                    </button>
+    
+                    <!-- Modal -->
+                    <div class="modal fade" [id]="'modal' + order.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Detalle orden N° {{ order.id }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Material</th>
+                                                        <th>Cantidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let material of order.materials_orders">
+                                                        <td>{{ material.material.id }}</td>
+                                                        <td>{{ material.material.name }}</td>
+                                                        <td>{{ material.quantity }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

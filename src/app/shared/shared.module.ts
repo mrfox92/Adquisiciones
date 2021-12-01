@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 //  Pipe Module
 import { PipesModule } from '../pipes/pipes.module';
+import { CartItemComponent } from './cart-item/cart-item.component';
 
 
 @NgModule({
@@ -16,13 +17,15 @@ import { PipesModule } from '../pipes/pipes.module';
         HeaderComponent,
         BreadcrumbsComponent,
         SidebarComponent,
-        NopagefoundComponent
+        NopagefoundComponent,
+        CartItemComponent
     ],
     exports: [
         HeaderComponent,
         BreadcrumbsComponent,
         SidebarComponent,
-        NopagefoundComponent
+        NopagefoundComponent,
+        CartItemComponent
     ],
     imports: [
         CommonModule,

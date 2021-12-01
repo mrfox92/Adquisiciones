@@ -1,0 +1,42 @@
+<div class="row" *ngIf="orderDetail.length > 0">
+  <div class="col-md-10">
+    <h3>Orden materiales N°: {{ order.id }}</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Material</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of orderDetail">
+          <th scope="row">{{ detail.material_id }}</th>
+          <td>{{ detail.material.name }}</td>
+          <td>{{ detail.quantity }}</td>
+          <td>
+            <button
+              type="button"
+              (click)="borrar(detail)"
+              class="btn btn-danger"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <button
+        [routerLink]="['/checkout', order.id]"
+        type="button"
+        class="btn btn-primary"
+      >
+        Finalizar orden Materiales
+      </button>
+    </div>
+  </div>
+</div>

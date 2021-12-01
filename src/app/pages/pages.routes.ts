@@ -10,7 +10,6 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { LoginGuardGuard } from '../services/service.index';
 import { UsersComponent } from './users/users.component';
-import { MaterialsComponent } from './materials/materials.component';
 import { ProvidersComponent } from './providers/providers.component';
 import { CreateProviderComponent } from './providers/create-provider.component';
 import { EditProviderComponent } from './providers/edit-provider.component';
@@ -30,6 +29,14 @@ import { CreateOrderComponent } from './orders/create-order.component';
 import { EditOrderComponent } from './orders/edit-order.component';
 import { ShowOrderDetailComponent } from './orders/show-order-detail.component';
 import { MaterialRegisterComponent } from './material-register/material-register.component';
+import { DispatchersComponent } from './dispatchers/dispatchers.component';
+import { StocktakingComponent } from './dispatchers/stocktaking.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { MaterialComponent } from './dispatchers/material.component';
+import { OrderComponent } from './dispatchers/order.component';
+import { CheckoutComponent } from './dispatchers/checkout.component';
+import { MyOrdersComponent } from './dispatchers/my-orders.component';
+import { SearchMaterialComponent } from './dispatchers/search-material.component';
 
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
@@ -49,6 +56,13 @@ const pagesRoutes: Routes = [
                 { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
                 //  Mantenimientos
                 { path: 'usuarios', component: UsersComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
+                { path: 'despachadores', component: DispatchersComponent, data: { titulo: 'Despachadores' } },
+                { path: 'inventario', component: StocktakingComponent, data: { titulo: 'Inventario' } },
+                { path: 'inventario/detail/:id', component: MaterialComponent, data: { titulo: 'Detalle material' } },
+                { path: 'pedido/:id', component: OrderComponent, data: { titulo: 'Orden pedido materiales' } },
+                { path: 'checkout/:id', component: CheckoutComponent, data: { titulo: 'Finalizar orden materiales' } },
+                { path: 'mis-ordenes', component: MyOrdersComponent, data: { titulo: 'Mis ordenes' } },
+                { path: 'busqueda/:termino', component: SearchMaterialComponent, data: { titulo: 'Buscar Material' } },
                 { path: 'ingresos', component: MaterialRegisterComponent, data: { titulo: 'Ingreso de materiales' } },
                 { path: 'materiales', component: MaterialsComponent, data: { titulo: 'Mantenimiento de Materiales' } },
                 { path: 'materiales/agregar', component: CreateMaterialComponent, data: { titulo: 'Registrar nuevo material' } },

@@ -9,6 +9,7 @@ import { Material } from '../../models/material.model';
   providedIn: 'root'
 })
 export class MaterialsService {
+
   public acquisition: Acquisition;
   private token: string = '';
   constructor( public http: HttpClient, public userService: UserService ) {

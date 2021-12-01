@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-body">
+        <form autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardar()" class="form p-t-20">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="validationServer03">Responsable retiro materiales</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="invalidResponsible"
+                placeholder="Ingrese nombre de quien retira"
+                autofocus
+                formControlName="responsable"
+              />
+              <div *ngIf="invalidResponsible" class="invalid-feedback">
+                Por favor ingrese nombre responsable retiro
+              </div>
+            </div>
+          </div>
+    
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="validationServer03">Departamento</label>
+              <select (change)="changeDepto( $event )" class="form-control" [class.is-invalid]="invalidDeptos"
+                formControlName="deptos"
+              >
+                <option value="" disabled>Seleccionar departamento</option>
+                <option *ngFor="let depto of deptos" [value]="depto.id">
+                  {{ depto.name }}
+                </option>
+              </select>
+              <div *ngIf="invalidDeptos" class="invalid-feedback">
+                Debe seleccionar un departamento
+              </div>
+            </div>
+          </div>
+    
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="validationServer03">Oficina destino</label>
+              <select class="form-control" 
+                formControlName="offices"
+                [class.is-invalid]="invalidOffices"
+                required
+              >
+                <option value="" selected disabled>Seleccionar oficina</option>
+                <option *ngFor="let office of offices" [value]="office.id">{{ office.name }}</option>
+              </select>
+
+              <div *ngIf="invalidOffices" class="invalid-feedback">
+                Debe seleccionar una oficina
+              </div>
+            </div>
+          </div>
+    
+          <br>
+    
+          <button
+            type="submit"
+            [disabled]="formulario.invalid"
+            class="btn btn-primary btn-block waves-effect waves-light m-r-10"
+          >
+            <i class="fa fa-save"></i> Finalizar Orden Materiales
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

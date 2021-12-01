@@ -38,10 +38,10 @@
                     <table class="table table-hover table-stripped">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>N° orden</th>
+                                <!-- <th>N° orden</th> -->
                                 <!-- <th>Despachador</th> -->
-                                <th>Oficina</th>
+                                <!-- <th>Oficina</th> -->
                                 <th>Estado orden</th>
                                 <th>Nombre responsable retiro</th>
                                 <th>Acciones</th>
@@ -50,15 +50,16 @@
                         <tbody>
                             <tr *ngFor="let order of orders">
                                 <td>{{ order.id }}</td>
-                                <td>{{ order.num_order }}</td>
+                                <!-- <td>{{ order.num_order }}</td> -->
                                 <!-- <td>{{ order.dispatcher.user.id }}</td> -->
-                                <td>{{ order.office.name }}</td>
+                                <!-- <td>{{ order.office.name }}</td> -->
                                 <!-- <td>{{ order.status }}</td> -->
                                 <td class="w200">
                                     <select [(ngModel)]="order.status" class="form-control">
                                         <option [value]="1">Iniciada</option>
                                         <option [value]="2">Procesando</option>
                                         <option [value]="3">Finalizada</option>
+                                        <option [value]="4">Anulada</option>
                                     </select>
                                 </td>
                                 <td>{{ order.name_responsible }}</td>

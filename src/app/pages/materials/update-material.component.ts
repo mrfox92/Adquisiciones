@@ -27,6 +27,7 @@ export class UpdateMaterialComponent implements OnInit {
   ngOnInit(): void {
     this.getAcquisitionUser();
     this.materialId = Number( this.route.snapshot.paramMap.get('id') );
+    console.log('Material ID: ' + this.materialId);
     this.getMaterial();
   }
 
@@ -48,7 +49,15 @@ export class UpdateMaterialComponent implements OnInit {
         this.acquisition = resp.acquisition;
       }
     },
-    error => console.log( error ));
+    error => {
+      console.log( error );
+      Swal.fire({
+        title: 'Error',
+        text: 'El usuario autenticado no tiene los privilegios suficiente',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    });
   }
 
   updateMaterial( form: NgForm ) {
@@ -58,6 +67,8 @@ export class UpdateMaterialComponent implements OnInit {
       return;
     }
     console.log( form.value );
+    //  corregir excepcion si no encuentra this.acquisition.id
+
     this.material.acquisition_id = this.acquisition.id;
     this.materialsService.updateMaterial( this.material ).subscribe( (resp: any) => {
       console.log( resp );
@@ -72,7 +83,14 @@ export class UpdateMaterialComponent implements OnInit {
 
       }
     },
-    error => console.log( error ));
+    error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se ha podido actualizar',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    });
   }
 
 }
