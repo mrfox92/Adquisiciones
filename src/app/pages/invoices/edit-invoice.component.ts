@@ -52,6 +52,7 @@ export class EditInvoiceComponent implements OnInit {
   getInvoice() {
     this.invoicesService.getInvoice( this.invoiceId ).subscribe( (resp: any) => {
       if ( resp.status === 'success' ) {
+        console.log( resp.invoice );
         this.invoice = resp.invoice;
       }
     },
@@ -65,6 +66,7 @@ export class EditInvoiceComponent implements OnInit {
       return;
     }
     console.log('El formulario es válido: ', form.valid);
+    // console.log( form.value );
     //  actualizamos el valor del id del usuario adquisiciones al que esta actualmente autenticado
     this.invoice.acquisition_id = this.acquisition.id;
     this.invoicesService.updateInvoice( this.invoice ).subscribe( (resp: any) => {
@@ -78,6 +80,8 @@ export class EditInvoiceComponent implements OnInit {
       }
     },
     error => console.log( error ));
+
   }
+
 
 }

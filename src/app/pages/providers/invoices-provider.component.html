@@ -1,0 +1,97 @@
+
+
+<div class="row" *ngIf="invoices.length > 0">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-stripped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>N° Factura</th>
+                            <th>Fecha emisión</th>
+                            <th>Fecha vencimiento</th>
+                            <th>Fecha ingreso</th>
+                            <th>
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let invoice of invoices">
+                            <td>{{ invoice.id }}</td>
+                            <td>
+                                {{ invoice.invoice_number }}
+                            </td>
+                            <td>
+                                <span *ngIf="!invoice.emission_date" class="badge badge-secondary">
+                                    No especificada
+                                </span>
+                                <span>
+                                    {{ invoice.emission_date | date:'dd/MM/yyyy' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span *ngIf="!invoice.expiration_date" class="badge badge-secondary">
+                                    No especificada
+                                </span>
+                                <span>
+                                    {{ invoice.expiration_date | date:'dd/MM/yyyy' }}
+                                </span>
+                            </td>
+                            <td>{{ invoice.created_at | date:'dd/MM/yyyy' }}</td>
+                            <td width="200px">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + invoice.id">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" [id]="'modal' + invoice.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Detalle Factura N° {{ invoice.invoice_number }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <table>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>Cod Barras</th>
+                                                                    <th>Material</th>
+                                                                    <th>Cantidad</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let material of invoice.materials_invoices">
+                                                                    <td>{{ material.material.id }}</td>
+                                                                    <td>{{ material.material.bar_code }}</td>
+                                                                    <td>{{ material.material.name }}</td>
+                                                                    <td>{{ material.quantity }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

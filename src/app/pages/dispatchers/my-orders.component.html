@@ -83,22 +83,35 @@
                                 <div class="modal-body">
                                     <div class="card">
                                         <div class="card-body">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Material</th>
-                                                        <th>Cantidad</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let material of order.materials_orders">
-                                                        <td>{{ material.material.id }}</td>
-                                                        <td>{{ material.material.name }}</td>
-                                                        <td>{{ material.quantity }}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                          <span
+                                          *ngIf="order.offices[0]?.name === null"
+                                          class="badge badge-secondary"
+                                          >
+                                              No especificada
+                                          </span>
+                                          <span
+                                              *ngIf="order.offices[0]?.name !== null"
+                                              class="badge badge-primary"
+                                          >
+                                              Pedido Oficina {{ order.offices[0].name }}
+                                          </span>
+
+                                          <table>
+                                              <thead>
+                                                  <tr>
+                                                      <th>ID</th>
+                                                      <th>Material</th>
+                                                      <th>Cantidad</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr *ngFor="let material of order.materials_orders">
+                                                      <td>{{ material.material.id }}</td>
+                                                      <td>{{ material.material.name }}</td>
+                                                      <td>{{ material.quantity }}</td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
                                         </div>
                                     </div>
                                 </div>

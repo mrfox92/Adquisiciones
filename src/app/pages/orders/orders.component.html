@@ -30,11 +30,11 @@
         </div>
     </div>
 
-    <div class="row animated fadeIn justify-content-center" *ngIf="!loading && orders.length > 0">
+    <div class="row justify-content-center" *ngIf="!loading && orders.length > 0">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-text">Ordenes registradas <small>( {{ total }} )</small></h3>
+                    <h3 class="card-text">Ordenes Pendientes <small>( {{ total }} )</small></h3>
                     <table class="table table-hover table-stripped">
                         <thead>
                             <tr>
@@ -42,6 +42,7 @@
                                 <!-- <th>N° orden</th> -->
                                 <!-- <th>Despachador</th> -->
                                 <!-- <th>Oficina</th> -->
+                                <th>Oficina</th>
                                 <th>Estado orden</th>
                                 <th>Nombre responsable retiro</th>
                                 <th>Acciones</th>
@@ -50,24 +51,96 @@
                         <tbody>
                             <tr *ngFor="let order of orders">
                                 <td>{{ order.id }}</td>
+                                <td>
+                                    <span
+                                        *ngIf="order.offices[0]?.name === null"
+                                        class="badge badge-secondary"
+                                    >
+                                        No especificada
+                                    </span>
+                                    <span
+                                        *ngIf="order.offices[0]?.name !== null"
+                                        class="badge badge-primary"
+                                    >
+                                        Pedido Oficina {{ order.offices[0].name }}
+                                    </span>
+                                </td>
                                 <!-- <td>{{ order.num_order }}</td> -->
                                 <!-- <td>{{ order.dispatcher.user.id }}</td> -->
                                 <!-- <td>{{ order.office.name }}</td> -->
                                 <!-- <td>{{ order.status }}</td> -->
-                                <td class="w200">
+                                <td width="200px">
                                     <select [(ngModel)]="order.status" class="form-control">
-                                        <option [value]="1">Iniciada</option>
+                                        <!-- <option [value]="1">Iniciada</option> -->
                                         <option [value]="2">Procesando</option>
                                         <option [value]="3">Finalizada</option>
                                         <option [value]="4">Anulada</option>
                                     </select>
                                 </td>
                                 <td>{{ order.name_responsible }}</td>
-                                <td class="w200">
+                                <td width="200px">
                                     <!-- Mostrar listado materiales registrados para esa orden -->
-                                    <button [routerLink]="['/ordenes/detail', order.id]" class="btn btn-success mx-1"><i class="fa fa-eye"></i></button>
+                                    <!-- <button [routerLink]="['/ordenes/detail', order.id]" class="btn btn-success mx-1"><i class="fa fa-eye"></i></button> -->
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + order.id">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                     <button (click)="changeStatus( order )" class="btn btn-primary mx-1"><i class="fa fa-save"></i></button>
                                     <button class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" [id]="'modal' + order.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detalle orden N° {{ order.id }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <span
+                                                            *ngIf="order.offices[0]?.name === null"
+                                                            class="badge badge-secondary"
+                                                            >
+                                                                No especificada
+                                                            </span>
+                                                            <span
+                                                                *ngIf="order.offices[0]?.name !== null"
+                                                                class="badge badge-primary"
+                                                            >
+                                                                Pedido Oficina {{ order.offices[0].name }}
+                                                            </span>
+
+                                                            <table>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Material</th>
+                                                                        <th>Cantidad</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let material of order.materials_orders">
+                                                                        <td>{{ material.material.id }}</td>
+                                                                        <td>{{ material.material.name }}</td>
+                                                                        <td>{{ material.quantity }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+
                                 </td>
                             </tr>
                         </tbody>

@@ -59,6 +59,8 @@ import { OrderComponent } from './dispatchers/order.component';
 import { CheckoutComponent } from './dispatchers/checkout.component';
 import { MyOrdersComponent } from './dispatchers/my-orders.component';
 import { SearchMaterialComponent } from './dispatchers/search-material.component';
+import { InvoicesProviderComponent } from './providers/invoices-provider.component';
+import { OutofstockComponent } from './materials/outofstock.component';
 
 
 @NgModule({
@@ -102,7 +104,9 @@ import { SearchMaterialComponent } from './dispatchers/search-material.component
         OrderComponent,
         CheckoutComponent,
         MyOrdersComponent,
-        SearchMaterialComponent
+        SearchMaterialComponent,
+        InvoicesProviderComponent,
+        OutofstockComponent
     ],
     exports: [
         DashboardComponent,

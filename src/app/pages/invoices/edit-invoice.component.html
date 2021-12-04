@@ -31,6 +31,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Fecha emisión (opcional)</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input class="form-control" 
+                                        type="date" 
+                                        #emission_date="ngModel"
+                                        [ngModel]="invoice.emission_date | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="invoice.emission_date = $event"
+                                        name="emission_date"
+                                        placeholder="Ingrese fecha emisión factura"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Fecha vencimiento (opcional)</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input class="form-control" 
+                                        [ngModel]="invoice.expiration_date | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="invoice.expiration_date = $event"
+                                        name="expiration_date"
+                                        #expiration_date="ngModel" type="date" 
+                                        placeholder="Ingrese fecha vencimiento factura"
+                                    >
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group row m-b-0 ">
                             <div class="offset-sm-3 col-sm-9 col-md-12 ">
                                 <button [disabled]="!form.valid" type="submit " class="btn btn-success btn-block waves-effect waves-light ">

@@ -95,6 +95,13 @@
                                     <input [(ngModel)]="newInvoice.invoice_number" #invoice_num class="form-control" type="number" name="invoice_number" placeholder="Ingrese N° factura" required>
                                     <!-- <input [(ngModel)]="newInvoice.invoice_number" #invoice_num="ngModel" name="invoice_num" type="number" class="form-control" placeholder="Ingrese N° factura" required> -->
                                 </div>
+                                <div class="form-group col-md-12">
+                                    <input class="form-control" name="emission_date" [(ngModel)]="newInvoice.emission_date" #emission_date  type="date" placeholder="Ingrese fecha emisión factura">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input class="form-control" name="expiration_date" [(ngModel)]="newInvoice.expiration_date" #expiration_date  type="date" placeholder="Ingrese fecha vencimiento factura">
+                                </div>
+                                
                             </div>
                             <div class="form-group col-md-12">
                                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Guardar</button>
@@ -118,33 +125,113 @@
                             <h4 class="card-title">Nuevo Ingreso material(es) factura <span class="badge badge-info" *ngIf="invoice">N° {{ invoice.invoice_number }}</span><span class="text-muted" *ngIf="provider"> {{ provider.name }}</span></h4>
                             <h6 class="card-subtitle">utiliza este formulario para registrar stock entrante materiales</h6>
                             <form ngNativeValidate [formGroup]="formulario" class="form-horizontal p-t-20" (ngSubmit)="registrarIngresoMaterial() ">
+                                
                                 <ng-container *ngFor="let materialFormGroup of formulario.controls; let i = index">
                                     <div [formGroup]="materialFormGroup">
 
                                         <div class="form-group row">
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group col-md-6">
                                                 <div class="col-sm-12">
-                                                    <ng2-completer [inputClass]="['form-control']" formControlName="material" [placeholder]="'Leer código barra'" [datasource]="dataService" [minSearchLength]="3"></ng2-completer>
+                                                    <ng2-completer
+                                                        [class.is-invalid]="materialFormGroup.controls.material.invalid && materialFormGroup.controls.material.touched"
+                                                        (change)="addName( code.value, i )" 
+                                                        #code [inputClass]="['form-control']" 
+                                                        formControlName="material" [placeholder]="'Leer código barra'" [datasource]="dataService" [minSearchLength]="3">
+                                                    </ng2-completer>
+
+                                                    <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.material.invalid && materialFormGroup.controls.material.touched">
+                                                        <small>Debe ingresar el código de barras</small>
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-2">
+                                            <div class="form-group col-md-6">
                                                 <div class="col-sm-12">
-                                                    <input formControlName="quantity" name="quantity" type="number" class="form-control" placeholder="cantidad">
+                                                    <input 
+                                                        [class.is-invalid]="materialFormGroup.controls.nombre.invalid && materialFormGroup.controls.nombre.touched"
+                                                        [class.is-valid]="materialFormGroup.controls.nombre.valid"
+                                                        formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre material">
+
+                                                    <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.nombre.invalid && materialFormGroup.controls.nombre.touched">
+                                                        <small>Debe ingresar nombre material</small>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-2">
+                                            <div class="form-group col-md-6">
                                                 <div class="col-sm-12">
-                                                    <input (keyup)="calcularCosto(i)" formControlName="unity_cost" name="unity_cost" type="number" class="form-control" placeholder="Precio unitario">
+                                                    <input
+                                                        [class.is-invalid]="materialFormGroup.controls.quantity.invalid && materialFormGroup.controls.quantity.touched"
+                                                        [class.is-valid]="materialFormGroup.controls.quantity.valid"
+                                                        (keyup)="calcularCosto(i)" formControlName="quantity" name="quantity" type="number" class="form-control" placeholder="cantidad">
+                                                        
+                                                    <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.quantity.invalid && materialFormGroup.controls.quantity.touched">
+                                                        <small>Debe ingresar cantidad material</small>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-2">
+                                            <div class="form-group col-md-6">
                                                 <div class="col-sm-12">
-                                                    <input formControlName="total_cost" name="total_cost" type="number" class="form-control" placeholder="Total">
+                                                    <input
+                                                        [class.is-invalid]="materialFormGroup.controls.unity_cost.invalid && materialFormGroup.controls.unity_cost.touched"
+                                                        [class.is-valid]="materialFormGroup.controls.unity_cost.valid"
+                                                        (keyup)="calcularCosto(i)" formControlName="unity_cost" name="unity_cost" type="number" class="form-control" placeholder="Precio unitario">
+
+                                                    <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.unity_cost.invalid && materialFormGroup.controls.unity_cost.touched">
+                                                        <small>Debe ingresar valor unitario</small>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-2">
+                                            <div class="form-group col-md-6">
                                                 <div class="col-sm-12">
-                                                    <input formControlName="iva" name="iva" type="number" class="form-control" placeholder="IVA">
+                                                    <input
+                                                        [class.is-valid]="materialFormGroup.controls.total_cost.valid"
+                                                        step="any"
+                                                        formControlName="total_cost" name="total_cost" type="number" class="form-control" placeholder="Total">
+
+                                                    <!-- <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.total_cost.invalid">
+                                                        <small>El costo total es requerido</small>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <div class="col-sm-12">
+                                                    <input
+                                                        [class.is-valid]="materialFormGroup.controls.iva.valid"
+                                                        step="any"
+                                                        formControlName="iva" name="iva" type="number" class="form-control" placeholder="IVA">
+
+                                                    <!-- <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.iva.invalid">
+                                                        <small>El costo total es requerido</small>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <div class="col sm-12">
+                                                    <select 
+                                                        [class.is-invalid]="materialFormGroup.controls.unity_type.invalid && materialFormGroup.controls.unity_type.touched"
+                                                        [class.is-valid]="materialFormGroup.controls.unity_type.valid"
+                                                        formControlName="unity_type" name="unity_type" class="form-control"
+                                                    >
+                                                        
+                                                        <option value="" selected>Seleccione tipo unidad</option>
+                                                        <option value="1">Unidad</option>
+                                                        <option value="2">Paquete</option>
+                                                        <option value="3">Resma</option>
+                                                        <option value="4">Set</option>
+                                                        <option value="5">Caja</option>
+
+                                                    </select>
+
+                                                    <div class="message-error-form"
+                                                        *ngIf="materialFormGroup.controls.unity_type.invalid && materialFormGroup.controls.unity_type.touched">
+                                                        <small>Debe seleccionar tipo unidad</small>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-1" *ngIf="i >= 1">
@@ -158,7 +245,7 @@
 
                                 <div class="form-group row m-b-0 ">
                                     <div class="offset-sm-6 col-sm-6 col-md-6 my-2">
-                                        <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
+                                        <button [disabled]="formulario.invalid" type="submit" class="btn btn-success btn-block waves-effect waves-light">
                                             <i class="fa fa-save "></i> Guardar
                                         </button>
                                     </div>

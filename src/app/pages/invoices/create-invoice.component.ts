@@ -26,7 +26,9 @@ export class CreateInvoiceComponent implements OnInit {
     this.getAcquisition();
     this.formulario = new FormGroup({
       provider_id: new FormControl( null, Validators.required ),
-      invoice_number: new FormControl( null, Validators.required )
+      invoice_number: new FormControl( null, Validators.required ),
+      emission_date: new FormControl( null, Validators.required ),
+      expiration_date: new FormControl( null, Validators.required ),
     });
   }
 
@@ -62,8 +64,14 @@ export class CreateInvoiceComponent implements OnInit {
     const invoice = new Invoice(
       this.formulario.value.invoice_number,
       this.formulario.value.provider_id,
-      this.acquisition.id
+      this.acquisition.id,
+      null,
+      null,
+      this.formulario.value.emission_date,
+      this.formulario.value.expiration_date,
     );
+
+    console.log( invoice );
 
     // console.log( 'Factura: ', invoice );
     //  nota: evaluar en el servicio si el número de factura ya existe en BD para ese proveedor

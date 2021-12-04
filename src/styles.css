@@ -23,3 +23,7 @@
 .w50 {
     width: 50px;
 }
+
+.message-error-form {
+    color: red;
+}

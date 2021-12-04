@@ -28,6 +28,14 @@
         </div>
     </div>
 
+    <div class="animated fadeIn my-3" *ngIf="invoices.length === 0 && !loading">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay resultados</strong>
+            </div>
+        </div>
+    </div>
+
     <div class="row animated" *ngIf="!loading && invoices.length > 0">
         <div class="col-md-12">
             <div class="card fadeIn my-2">
@@ -50,9 +58,59 @@
                                 <td>{{ invoice.invoice_number }}</td>
                                 <td>{{ invoice.provider.name }}</td>
                                 <td class="w200">
-                                    <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button>
+                                    <!-- <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button> -->
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + invoice.id">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                     <button [routerLink]="['/facturas/edit', invoice.id]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button>
                                     <button (click)="deleteInvoice( invoice )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" [id]="'modal' + invoice.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detalle Factura N° {{ invoice.invoice_number }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="alert alert-danger" *ngIf="invoice.materials_invoices.length === 0">
+                                                                Esta factura está vacía
+                                                            </div>
+                                                            <table *ngIf="invoice.materials_invoices.length > 0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Cod Barras</th>
+                                                                        <th>Material</th>
+                                                                        <th>Cantidad</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let material of invoice.materials_invoices">
+                                                                        <td>{{ material.material.id }}</td>
+                                                                        <td>{{ material.material.bar_code }}</td>
+                                                                        <td>{{ material.material.name }}</td>
+                                                                        <td>{{ material.quantity }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
                                 </td>
                             </tr>
                         </tbody>

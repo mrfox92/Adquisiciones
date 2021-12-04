@@ -109,7 +109,7 @@
                                     <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + provider.id">
                                     <i class="fa fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-primary mx-1"><i class="fa fa-archive"></i></button>
+                                    <button [routerLink]="['/proveedores/detail', provider.id]" class="btn btn-primary mx-1"><i class="fa fa-archive"></i></button>
                                     <button [routerLink]="['/proveedores/edit', provider.id]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button>
                                     <button (click)="deleteProvider( provider )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
 

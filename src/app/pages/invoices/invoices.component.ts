@@ -35,6 +35,8 @@ export class InvoicesComponent implements OnInit {
     this.loading = true;
     this.invoicesService.getInvoices().subscribe( (resp: any) => {
 
+      console.log( resp.invoices.data );
+
       if ( resp.status === 'success' ) {
         this.invoices = resp.invoices.data;
         this.total = resp.invoices.total;
@@ -48,7 +50,22 @@ export class InvoicesComponent implements OnInit {
 
       }
     },
-    error => console.log( error ));
+    error => {
+      if ( error.error.code === 404 ) {
+
+        console.log( 'Dentro de error' );
+        this.invoices = error.error.invoices.data;
+        this.total = error.error.invoices.total;
+        this.currentPage = error.error.invoices.current_page;
+        this.lastPage = error.error.invoices.last_page;
+        this.firstPageUrl = error.error.invoices.first_page_url;
+        this.lastPageUrl = error.error.invoices.last_page_url;
+        this.nextPageUrl = error.error.invoices.next_page_url;
+        this.prevPageUrl = error.error.invoices.prev_page_url;
+        this.loading = false;
+
+      }
+    });
   }
 
 
@@ -156,7 +173,7 @@ export class InvoicesComponent implements OnInit {
 
         this.invoicesService.deleteInvoice( invoice.id ).subscribe( (resp: any) => {
 
-          if ( resp.status === 'success' ) {
+          if ( resp.status === 'success' && resp.status === 200 ) {
 
             this.getInvoices();
 

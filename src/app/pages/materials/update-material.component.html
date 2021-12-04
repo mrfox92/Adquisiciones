@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center animated fadeIn" *ngIf="material">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Editar Material</h4>
@@ -49,6 +49,21 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Imagen de material</h4>
+                    <h6 class="card-subtitle">{{ material.name }}</h6>
+                    <img *ngIf="!tempImage" class="img-thumbnail w150" [src]="material.picture | image:'material'" alt="">
+                    <img *ngIf="tempImage" class="img-thumbnail w150" [src]="tempImage" alt="">
+                    <div class="form-group">
+                        <input (change)="seleccionarImage( $event.target.files[0] )" class="my-2" type="file" name="file0">
+                    </div>
+                    <button (click)="cambiarImagen()" [disabled]="!imageUpload" type="button" class="btn btn-success waves-effect waves-light m-r-10 my-2 btn-block"><i class="fa fa-save"></i>  Actualizar Imagen</button>
                 </div>
             </div>
         </div>

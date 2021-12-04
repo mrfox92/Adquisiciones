@@ -1,0 +1,49 @@
+<div class="row animated fadeIn" *ngIf="!loading && materials.length > 0">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover table-stripped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Cod Barra</th>
+                            <th>Material</th>
+                            <th>Tipo Unidad</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let material of materials">
+                            <td>{{ material.id }}</td>
+                            <td>
+                                <img [src]="material.picture | image:'material'" class="img-thumbnail w70" alt="">
+                            </td>
+                            <td>{{ material.bar_code }}</td>
+                            <!-- <td>{{ material.acquisition_id }}</td> -->
+                            <td>{{ material.name }}</td>
+                            <td>
+                                <!-- UNITY = 1; PACKAGE = 2; REAM = 3; SET = 4; BOX = 5; -->
+                                <span *ngIf="material.unity_type === '1'" class="badge badge-success">Unidad</span>
+                                <span *ngIf="material.unity_type === '2'" class="badge badge-info">Paquete</span>
+                                <span *ngIf="material.unity_type === '3'" class="badge badge-secondary">Resma</span>
+                                <span *ngIf="material.unity_type === '4'" class="badge badge-danger">Set</span>
+                                <span *ngIf="material.unity_type === '5'" class="badge badge-purple">Caja</span>
+                            </td>
+                            <td>
+                                <span *ngIf="material.stock === 0" class="badge badge-danger">Agotado</span>
+                                <span *ngIf="material.stock > 0">{{ material.stock }}</span>
+                            </td>
+                            <td width="200px">
+                                <!-- <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button> -->
+                                <button [routerLink]="['/materiales/edit', material.id ]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button>
+                                <button (click)="deleteMaterial( material )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

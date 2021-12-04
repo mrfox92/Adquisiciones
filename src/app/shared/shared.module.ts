@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 //  Pipe Module
 import { PipesModule } from '../pipes/pipes.module';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { HeaderGeneralComponent } from './header/header-general.component';
 
 
 @NgModule({
@@ -18,10 +19,12 @@ import { CartItemComponent } from './cart-item/cart-item.component';
         BreadcrumbsComponent,
         SidebarComponent,
         NopagefoundComponent,
-        CartItemComponent
+        CartItemComponent,
+        HeaderGeneralComponent
     ],
     exports: [
         HeaderComponent,
+        HeaderGeneralComponent,
         BreadcrumbsComponent,
         SidebarComponent,
         NopagefoundComponent,

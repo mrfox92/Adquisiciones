@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../services/service.index';
 import { Order } from '../../models/Order.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders',
@@ -31,6 +32,9 @@ export class OrdersComponent implements OnInit {
   getOrders() {
     this.loading = true;
     this.ordersService.getOrders().subscribe( (resp: any) => {
+
+      // console.log( resp.orders.data );
+
       if ( resp.status === 'success' ) {
         this.orders = resp.orders.data;
         this.total = resp.orders.total;
@@ -47,7 +51,21 @@ export class OrdersComponent implements OnInit {
   }
 
   changeStatus( order: Order ) {
-    console.log('Cambio estado orden: ', order.status);
+    // console.log('Cambio estado orden: ', order.status);
+
+    // console.log( order );
+    this.ordersService.changeStatusOrder( order ).subscribe( resp => {
+
+      this.getOrders();
+
+      Swal.fire({
+        title: 'Orden actualizada',
+        text: 'La orden ha sido actualizada con éxtio',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+    });
+
   }
 
   prevPage() {
@@ -92,6 +110,7 @@ export class OrdersComponent implements OnInit {
 
       if ( resp.status === 'success' ) {
         // console.log( resp );
+        console.log( resp.orders.data );
         this.orders = resp.orders.data;
         this.total = resp.orders.total;
         this.currentPage = resp.orders.current_page;

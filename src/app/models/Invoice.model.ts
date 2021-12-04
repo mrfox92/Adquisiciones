@@ -15,6 +15,7 @@ export class Invoice {
         // tslint:disable-next-line: variable-name
         public expiration_date?: any,
         // tslint:disable-next-line: variable-name
-        public created_at?: any
+        public created_at?: any,
+        public materials_invoices_count?: number
     ) {}
 }

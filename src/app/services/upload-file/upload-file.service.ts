@@ -38,7 +38,7 @@ export class UploadFileService {
       };
 
       //  estructuramos la url de peticion al servicio
-      //  http://acquisitions.cl/api/user/upload
+      //  http://acquisitions.cl/api/materials/upload
       let url = `${ URL_SERVICES }/${ tipo }/upload/${ id }`;
 
       //  hacemo la petición

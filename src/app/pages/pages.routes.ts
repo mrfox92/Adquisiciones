@@ -37,6 +37,8 @@ import { OrderComponent } from './dispatchers/order.component';
 import { CheckoutComponent } from './dispatchers/checkout.component';
 import { MyOrdersComponent } from './dispatchers/my-orders.component';
 import { SearchMaterialComponent } from './dispatchers/search-material.component';
+import { InvoicesProviderComponent } from './providers/invoices-provider.component';
+import { OutofstockComponent } from './materials/outofstock.component';
 
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
@@ -65,7 +67,8 @@ const pagesRoutes: Routes = [
                 { path: 'busqueda/:termino', component: SearchMaterialComponent, data: { titulo: 'Buscar Material' } },
                 { path: 'ingresos', component: MaterialRegisterComponent, data: { titulo: 'Ingreso de materiales' } },
                 { path: 'materiales', component: MaterialsComponent, data: { titulo: 'Mantenimiento de Materiales' } },
-                { path: 'materiales/agregar', component: CreateMaterialComponent, data: { titulo: 'Registrar nuevo material' } },
+                // { path: 'materiales/agregar', component: CreateMaterialComponent, data: { titulo: 'Registrar nuevo material' } },
+                { path: 'materiales/agotados', component: OutofstockComponent, data: { titulo: 'Materiales agotados' } },
                 { path: 'materiales/edit/:id', component: UpdateMaterialComponent, data: { titulo: 'Editar Material' } },
                 { path: 'ordenes', component: OrdersComponent, data: { titulo: 'Mantenimiento de ordenes despacho' } },
                 { path: 'ordenes/agregar', component: CreateOrderComponent, data: { titulo: 'Regisrar nueva orden' } },
@@ -80,6 +83,7 @@ const pagesRoutes: Routes = [
                 { path: 'proveedores', component: ProvidersComponent, data: { titulo: 'Mantenimiento de Proveedores' } },
                 { path: 'proveedores/agregar', component: CreateProviderComponent, data: { titulo: 'Registrar nuevo proveedor' } },
                 { path: 'proveedores/edit/:id', component: EditProviderComponent, data: { titulo: 'Editar proveedor' } },
+                { path: 'proveedores/detail/:id', component: InvoicesProviderComponent, data: { titulo: 'Facturas proveedor' } },
                 { path: 'facturas', component: InvoicesComponent, data: { titulo: 'Mantenimiento de facturas' } },
                 { path: 'facturas/agregar', component: CreateInvoiceComponent, data: { titulo: 'Registrar nueva factura' } },
                 { path: 'facturas/edit/:id', component: EditInvoiceComponent, data: { titulo: 'Editar factura' } },
