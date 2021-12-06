@@ -68,7 +68,7 @@ export class MaterialRegisterComponent implements OnInit {
     //  inicializamos nuestro formulario
     this.formulario = new FormArray([
       new FormGroup({
-        material: new FormControl( null, [ Validators.required, Validators.minLength(3) ] ),
+        material: new FormControl( null, [ Validators.required, Validators.minLength(2) ] ),
         // invoice: new FormControl({ value: this.invoiceId, disabled: true }),
         // invoice: new FormControl(this.invoiceId),
         nombre: new FormControl( null, [ Validators.required, Validators.minLength(3) ] ),

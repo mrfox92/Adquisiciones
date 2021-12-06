@@ -112,8 +112,12 @@ export class RegisterComponent implements OnInit {
         //  navegamos hacia la pantalla de login
         this.router.navigate(['/login']);
       },
-      error => {
-        console.log( error );
+      err => {
+        // console.log( error );
+        if ( err.error.errors.email[0] ) {
+          console.log( err );
+          this.getMessage( 'Importante!', `${ err.error.errors.email[0] }`, 'warning' );
+        }
       }
     );
 

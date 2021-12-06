@@ -43,7 +43,7 @@
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->
-                <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                <li *ngIf="isDispatcher" class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
                     <div class="app-search">
                         <input
                             #txtBuscar
@@ -57,7 +57,7 @@
                 <!-- ============================================================== -->
                 <!-- Messages -->
                 <!-- ============================================================== -->
-                <li class="nav-item dropdown">
+                <li *ngIf="isDispatcher" class="nav-item dropdown">
                     <a (click)="updateCartItems()" class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-cart"></i>
                         <div *ngIf="pedido.length > 0" class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                     </a>

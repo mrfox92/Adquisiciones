@@ -136,7 +136,7 @@
                                                         [class.is-invalid]="materialFormGroup.controls.material.invalid && materialFormGroup.controls.material.touched"
                                                         (change)="addName( code.value, i )" 
                                                         #code [inputClass]="['form-control']" 
-                                                        formControlName="material" [placeholder]="'Leer código barra'" [datasource]="dataService" [minSearchLength]="3">
+                                                        formControlName="material" [placeholder]="'Leer código barra'" [datasource]="dataService" [minSearchLength]="2">
                                                     </ng2-completer>
 
                                                     <div class="message-error-form"

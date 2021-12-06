@@ -267,4 +267,18 @@ export class UserService {
 
     return this.http.delete( url, { headers } );
   }
+
+
+  isAdmin() {
+
+    const url = `${ URL_SERVICES }/administrador/admin`;
+
+    const headers = new HttpHeaders()
+      .set('Authorization', this.token);
+
+    // return isAdmin;
+
+    return this.http.get( url, { headers } ).pipe( map( (resp: any) => resp.isAdmin ) );
+
+  }
 }

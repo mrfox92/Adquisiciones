@@ -1,0 +1,33 @@
+
+
+<div class="row animated fadeIn" *ngIf="loading">
+    <div class="col-md-12">
+        <div class="alert alert-warning text-center">
+            <strong>Loading</strong>
+            <br>
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+            <br>
+            <strong>espere por favor</strong>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info" *ngIf="data.length === 0 && !loading">
+    <strong>No hay datos que coincidan con tu busqueda</strong>
+</div>
+
+<ngx-charts-bar-vertical
+  [view]="view"
+  scheme="cool"
+  [results]="data"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [legendTitle]="labelTitle"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  (select)="onSelect($event)" *ngIf="data.length > 0">
+</ngx-charts-bar-vertical>

@@ -36,6 +36,8 @@ export class DepartmentsComponent implements OnInit {
 
       if ( resp.status === 'success' ) {
 
+        console.log( resp.departments.data );
+
         this.departments = resp.departments.data;
         //  inicializamos nuestras variables de la paginación
         this.total = resp.departments.total;

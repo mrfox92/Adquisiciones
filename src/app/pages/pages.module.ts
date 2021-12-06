@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //  Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -15,13 +16,13 @@ const ngWizardConfig: NgWizardConfig = {
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
-import { Graficas1Component } from './graficas1/graficas1.component';
 import { PAGES_ROUTES } from './pages.routes';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 //  Graficas
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
+
 //  componente grafica
-import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
+// import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
@@ -61,6 +62,12 @@ import { MyOrdersComponent } from './dispatchers/my-orders.component';
 import { SearchMaterialComponent } from './dispatchers/search-material.component';
 import { InvoicesProviderComponent } from './providers/invoices-provider.component';
 import { OutofstockComponent } from './materials/outofstock.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GraficasComponent } from './graficas/graficas.component';
+import { OficinasMesAnioComponent } from './graficas/oficinas-mes-anio.component';
+import { GraficasPedidosComponent } from './graficas/graficas-pedidos.component';
+import { GraficasPedidosOficinasAnioComponent } from './graficas/graficas-pedidos-oficinas-anio.component';
+import { GraficaFacturasComponent } from './graficas/grafica-facturas.component';
 
 
 @NgModule({
@@ -69,9 +76,9 @@ import { OutofstockComponent } from './materials/outofstock.component';
         PagesComponent,
         DashboardComponent,
         ProgressComponent,
-        Graficas1Component,
+        // Graficas1Component,
         IncrementadorComponent,
-        GraficoDonaComponent,
+        // GraficoDonaComponent,
         AccountSettingsComponent,
         PromesasComponent,
         RxjsComponent,
@@ -106,20 +113,27 @@ import { OutofstockComponent } from './materials/outofstock.component';
         MyOrdersComponent,
         SearchMaterialComponent,
         InvoicesProviderComponent,
-        OutofstockComponent
+        OutofstockComponent,
+        GraficasComponent,
+        OficinasMesAnioComponent,
+        GraficasPedidosComponent,
+        GraficasPedidosOficinasAnioComponent,
+        GraficaFacturasComponent
     ],
     exports: [
         DashboardComponent,
         ProgressComponent,
-        Graficas1Component,
+        // Graficas1Component,
     ],
     imports: [
         CommonModule,
+        BrowserAnimationsModule,
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
         ReactiveFormsModule,
-        ChartsModule,
+        // ChartsModule,
+        NgxChartsModule,
         PipesModule,
         Ng2CompleterModule,
         NgWizardModule.forRoot(ngWizardConfig)

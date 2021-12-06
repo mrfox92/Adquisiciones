@@ -41,12 +41,26 @@ export class ProfileComponent implements OnInit {
     //  llamamos el servicio para actualizar
     this.userService.updateUser( this.user ).subscribe( resp => {
 
-      if ( resp.status === 'success' ) {
+      if ( resp.status === 'success' && resp.code === 200 ) {
         console.log( resp );
         this.getMessage('Perfil Actualizado', `${ this.user.name } ${ this.user.last_name } has actualizado tus datos`, 'success');
       }
     },
-    error => console.log( error ));
+    err => {
+
+      console.log( err );
+
+      if ( err.error.code === 400 && err.error.errors.email[0] ) {
+
+        Swal.fire({
+          title: 'Ups!',
+          text: `${ err.error.errors.email[0] }`,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+
+      }
+    });
   }
 
   seleccionarImage( image: File ) {

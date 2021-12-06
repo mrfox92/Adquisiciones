@@ -83,13 +83,16 @@
                                                             <div class="alert alert-danger" *ngIf="invoice.materials_invoices.length === 0">
                                                                 Esta factura está vacía
                                                             </div>
-                                                            <table *ngIf="invoice.materials_invoices.length > 0">
+                                                            <table class="table table-responsive" *ngIf="invoice.materials_invoices.length > 0">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID</th>
                                                                         <th>Cod Barras</th>
                                                                         <th>Material</th>
                                                                         <th>Cantidad</th>
+                                                                        <th>Precio unitario</th>
+                                                                        <th>IVA</th>
+                                                                        <th>Total costo</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -98,6 +101,9 @@
                                                                         <td>{{ material.material.bar_code }}</td>
                                                                         <td>{{ material.material.name }}</td>
                                                                         <td>{{ material.quantity }}</td>
+                                                                        <td>{{ material.unity_cost | currency:'CLP ':'':'1.0-0' }}</td>
+                                                                        <td>{{ material.iva | currency:'CLP ':'':'1.0-0' }}</td>
+                                                                        <td>{{ material.total_cost | currency:'CLP ':'':'1.0-0' }}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

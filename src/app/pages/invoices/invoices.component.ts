@@ -81,7 +81,7 @@ export class InvoicesComponent implements OnInit {
     this.invoicesService.getPrevPage( this.prevPageUrl, this.busqueda, search ).subscribe( (resp: any) => {
 
       if ( resp.status === 'success' ) {
-        // console.log( resp );
+        console.log( resp );
         this.invoices = resp.invoices.data;
         this.total = resp.invoices.total;
         this.currentPage = resp.invoices.current_page;

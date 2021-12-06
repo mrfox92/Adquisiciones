@@ -1,0 +1,37 @@
+<div class="row animated fadeIn" *ngIf="loading">
+  <div class="col-md-12">
+      <div class="alert alert-warning text-center">
+          <strong>Loading</strong>
+          <br>
+          <i class="fa fa-spinner fa-spin fa-3x"></i>
+          <br>
+          <strong>espere por favor</strong>
+      </div>
+  </div>
+</div>
+
+
+<div class="alert alert-info animated fadeIn" *ngIf="grafica.length === 0 && !loading">
+  <strong>No existen suficientes datos para generar la gráfica comparativa</strong>
+</div>
+
+
+<ngx-charts-bar-horizontal-2d *ngIf="grafica.length > 0"
+  [view]="view"
+  scheme="cool"
+  [schemeType]="schemeType"
+  [results]="grafica"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [legendPosition]="legendPosition"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  >
+  <!-- (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" -->
+</ngx-charts-bar-horizontal-2d>

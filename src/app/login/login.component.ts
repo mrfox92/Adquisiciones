@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user.model';
+import Swal from 'sweetalert2';
 
 //  declaramos el nombre de la función
 declare function init_plugins();
@@ -60,15 +61,23 @@ export class LoginComponent implements OnInit {
     this.userService.login( user, forma.value.recuerdame ).subscribe(
       response => {
 
-        if ( response.status === 'success' ) {
+        if ( response.status === 'success' && response.code === 200 ) {
           console.log( response );
           this.router.navigate(['/dashboard']);
         } else {
           console.error( response );
         }
       },
-      error => console.log( error )
-    );
+      error => {
+
+        Swal.fire({
+          title: 'Error al iniciar sesión',
+          text: `${ error.error.message }`,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+
+      });
 
   }
 

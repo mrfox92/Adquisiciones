@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from '../services/shared/sidebar.service';
+import { DispatchersService } from '../services/dispatchers/dispatchers.service';
 
 //  declaramos el nombre de la función
 //  de esta forma podemos llamar cualquier script que se encuentre
@@ -18,7 +19,8 @@ export class PagesComponent implements OnInit {
   // isDispatcher: boolean = true;
 
   constructor(
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private dispatchersService: DispatchersService
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +29,8 @@ export class PagesComponent implements OnInit {
     //  cargamos el menu
     this.sidebarService.cargarMenu();
     console.log( this.sidebarService.menu );
+
+
   }
 
 

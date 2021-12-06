@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="row animated fadeIn my-2" *ngIf="!loading && departments.length !== 0">
+    <div class="row my-2" *ngIf="!loading && departments.length !== 0">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -56,11 +56,55 @@
                                 <td>{{ department.name }}</td>
                                 <td class="w200">
                                     <!-- Mostrar info departamento y oficinas que pertenecen a ese departamento -->
-                                    <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button>
+                                    <!-- <button class="btn btn-success mx-1"><i class="fa fa-eye"></i></button> -->
                                     <button [routerLink]="['/departamentos/editar', department.id ]" class="btn btn-info mx-1"><i class="fa fa-edit"></i></button>
                                     <!-- Permitir añadir una nueva oficina para ese departamento -->
-                                    <button class="btn btn-primary"><i class="fa fa-tasks"></i></button>
+                                    <!-- <button class="btn btn-primary"><i class="fa fa-tasks"></i></button> -->
+                                    <button type="button" class="btn btn-primary mx-1" data-toggle="modal" [attr.data-target]="'#modal' + department.id">
+                                        <i class="fa fa-tasks"></i>
+                                    </button>
                                     <button (click)="deleteDepto( department )" class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" [id]="'modal' + department.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Oficinas depto {{ department.name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="alert alert-danger" *ngIf="department.offices.length === 0">
+                                                                Esta factura está vacía
+                                                            </div>
+                                                            <table class="table table-responsive table-hover table-stripped" *ngIf="department.offices.length > 0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Nombre</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let office of department.offices">
+                                                                        <td>{{ office.id }}</td>
+                                                                        <td>{{ office.name }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
                                 </td>
                             </tr>
                         </tbody>

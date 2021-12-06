@@ -2,7 +2,6 @@ import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
-import { Graficas1Component } from './graficas1/graficas1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
@@ -39,6 +38,12 @@ import { MyOrdersComponent } from './dispatchers/my-orders.component';
 import { SearchMaterialComponent } from './dispatchers/search-material.component';
 import { InvoicesProviderComponent } from './providers/invoices-provider.component';
 import { OutofstockComponent } from './materials/outofstock.component';
+import { GraficasComponent } from './graficas/graficas.component';
+import { AdminGuardGuard } from '../services/guards/admin-guard.guard';
+import { OficinasMesAnioComponent } from './graficas/oficinas-mes-anio.component';
+import { GraficasPedidosComponent } from './graficas/graficas-pedidos.component';
+import { GraficasPedidosOficinasAnioComponent } from './graficas/graficas-pedidos-oficinas-anio.component';
+import { GraficaFacturasComponent } from './graficas/grafica-facturas.component';
 
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
@@ -51,13 +56,15 @@ const pagesRoutes: Routes = [
 
                 { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
                 { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
-                { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Graficas' } },
                 { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
                 { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
                 { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes del Tema' } },
                 { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
                 //  Mantenimientos
-                { path: 'usuarios', component: UsersComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
+                { path: 'usuarios', component: UsersComponent,
+                    canActivate: [ AdminGuardGuard ],
+                    data: { titulo: 'Mantenimiento de Usuarios' }
+                },
                 { path: 'despachadores', component: DispatchersComponent, data: { titulo: 'Despachadores' } },
                 { path: 'inventario', component: StocktakingComponent, data: { titulo: 'Inventario' } },
                 { path: 'inventario/detail/:id', component: MaterialComponent, data: { titulo: 'Detalle material' } },
@@ -87,6 +94,11 @@ const pagesRoutes: Routes = [
                 { path: 'facturas', component: InvoicesComponent, data: { titulo: 'Mantenimiento de facturas' } },
                 { path: 'facturas/agregar', component: CreateInvoiceComponent, data: { titulo: 'Registrar nueva factura' } },
                 { path: 'facturas/edit/:id', component: EditInvoiceComponent, data: { titulo: 'Editar factura' } },
+                { path: 'graficas', component: GraficasComponent, canActivate: [ AdminGuardGuard ], data: { titulo: 'Graficos' } },
+                { path: 'graficas/facturas/:anio', component: GraficaFacturasComponent,canActivate: [ AdminGuardGuard ], data: { titulo: 'Graficas facturas' } },
+                { path: 'graficas/compare/:from/:to', component: GraficasPedidosComponent, canActivate: [ AdminGuardGuard ], data: { titulo: 'Graficos pedidos' } },
+                { path: 'graficas/pedidos/oficinas/:anio', component: GraficasPedidosOficinasAnioComponent,canActivate: [ AdminGuardGuard ], data: { titulo: 'Graficos pedidos oficinas' } },
+                { path: 'graficas/oficinas/:mes/:anio', component: OficinasMesAnioComponent, canActivate: [ AdminGuardGuard ], data: { titulo: 'Grafica oficinas por mes y año' } },
                 { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             ]
         }

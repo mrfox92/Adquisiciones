@@ -59,6 +59,16 @@ export class DispatchersService {
   }
 
 
+  getDispatcherUser() {
+    //  http://acquisitions.cl/api/dispatcher/user
+    const url = `${ URL_SERVICES }/dispatcher/user`;
+    const headers = new HttpHeaders()
+      .set('Authorization', this.userService.token);
+
+    return this.http.get( url, { headers } );
+  }
+
+
 
   getMaterials() {
 
