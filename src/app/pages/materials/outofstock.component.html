@@ -1,3 +1,11 @@
+<div class="animated fadeIn" *ngIf="materials.length === 0 && !loading">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay materiales agotados de momento</strong>
+        </div>
+    </div>
+</div>
+
 <div class="row animated fadeIn" *ngIf="!loading && materials.length > 0">
     <div class="col-md-12">
         <div class="card">

@@ -44,11 +44,11 @@ export class UserService {
     return this.http.post( url, params, { headers } )
       .pipe(
         map( resp => resp ),
-        tap( (resp: any) => {
-          this.guardarStorage( resp.id, resp.token, resp.user, resp.menu );
-          //  leemos del storage
-          this.cargarStorage();
-        })
+        // tap( (resp: any) => {
+        //   // this.guardarStorage( resp.id, resp.token, resp.user, resp.menu );
+        //   // //  leemos del storage
+        //   // this.cargarStorage();
+        // })
       );
   }
 
@@ -118,7 +118,7 @@ export class UserService {
                       map( (resp: any) => {
                         // console.log(resp);
 
-                          if ( resp.status === 'success' ) {
+                          if ( resp.status === 'success' && resp.code === 200 ) {
                             //  grabamos en el storage
                             this.guardarStorage( resp.id, resp.token, resp.user, resp.menu );
                             //  leemos del storage

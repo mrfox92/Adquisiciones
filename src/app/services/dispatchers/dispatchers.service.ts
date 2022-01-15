@@ -134,6 +134,46 @@ export class DispatchersService {
       );
   }
 
+
+  getNextPage( nextPageUrl: string, termino: string = '', search: boolean = false ) {
+
+    let url = '';
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+
+    if ( search ) {
+      url = `${ nextPageUrl }&search=${ termino }`;
+    } else {
+      url = `${ nextPageUrl }`;
+    }
+
+    return this.http.get( url, { headers } );
+  }
+
+  getPrevPage( prevPageUrl: string, termino: string = '', search: boolean = false ) {
+
+    let url = '';
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+
+    if ( search ) {
+      url = `${ prevPageUrl }&search=${ termino }`;
+    } else{
+      url = `${ prevPageUrl }`;
+    }
+
+    return this.http.get( url, { headers } );
+  }
+
+  searchOrder( search: string ) {
+    //  /dispatcher/orders?search
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+    let url = `${ URL_SERVICES }/dispatcher/orders?search=${ search }`;
+
+    return this.http.get( url, { headers } );
+  }
+
   getSearchResults( termino: string ) {
     // http://acquisitions.cl/api/dispatcher/material/search/{search}
     const url = `${ URL_SERVICES }/dispatcher/material/search/${ termino }`;

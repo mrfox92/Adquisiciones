@@ -48,6 +48,58 @@ export class AdminService {
     return this.http.post( url, params, { headers },  );
   }
 
+  getOrders() {
+    //  http://acquisitions.cl/api/administrador/orders
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+
+    let url = `${ URL_SERVICES }/administrador/orders`;
+    return this.http.get( url, { headers } );
+  }
+
+  //  paginacion
+  getPrevPage( prevPageUrl: string , termino: string = '', search: boolean = false ) {
+
+    let url = '';
+    if ( search ) {
+      url = `${ prevPageUrl }&search=${ termino }`;
+    } else{
+      url = `${ prevPageUrl }`;
+    }
+
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+
+    return this.http.get( url, { headers } );
+  }
+
+  getNextPage( nextPageUrl: string, termino: string = '', search: boolean = false ) {
+
+    let url = '';
+    if ( search ) {
+      url = `${ nextPageUrl }&search=${ termino }`;
+    } else {
+      url = `${ nextPageUrl }`;
+    }
+
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+
+    return this.http.get( url, { headers } );
+  }
+
+  searchOrder( search: string ) {
+    //  http://acquisitions.cl/api/order/search/order?search=120
+
+    const headers = new HttpHeaders()
+        .set('Authorization', this.userService.token);
+
+    let url = `${ URL_SERVICES }/administrador/orders/search?search=${ search }`;
+
+    return this.http.get( url, { headers } );
+  }
+
+
 
   compareByYear( years: any ) {
 

@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <input #busqueda (keyup)="buscarOrden( busqueda.value )" class="form-control" type="text" placeholder="Buscar orden despacho">
+                    <input #busqueda (keyup)="buscarOrden( busqueda.value )" class="form-control" type="text" placeholder="Buscar orden nombre responsable retiro">
                 </div>
             </div>
         </div>
@@ -24,8 +24,8 @@
 
     <div class="animated fadeIn" *ngIf="orders.length === 0 && !loading">
         <div class="col-md-12">
-            <div class="alert alert-info">
-                <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay ordenes pendientes</strong>
+            <div class="alert alert-danger">
+                <strong><i class="mdi mdi-alert-octagon mdi-24px"></i> No hay resultados</strong>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-text">Ordenes Pendientes <small>( {{ total }} )</small></h3>
+                    <h3 class="card-text">Ordenes Procesadas <small>( {{ total }} )</small></h3>
                     <table class="table table-hover table-stripped">
                         <thead>
                             <tr>
@@ -64,12 +64,9 @@
                                     </span>
                                 </td>
                                 <td width="200px">
-                                    <select [(ngModel)]="order.status" class="form-control">
-                                        <!-- <option [value]="1">Iniciada</option> -->
-                                        <option [value]="2">Procesando</option>
-                                        <option [value]="3">Finalizada</option>
-                                        <option [value]="4">Anulada</option>
-                                    </select>
+                                    <span *ngIf="order.status == 2" class="badge badge-info">Procesando</span>
+                                    <span *ngIf="order.status == 3" class="badge badge-secondary">Finalizada</span>
+                                    <span *ngIf="order.status == 4" class="badge badge-danger">Anulada</span>
                                 </td>
                                 <td>{{ order.name_responsible }}</td>
                                 <td>{{ order.created_at | date: 'dd/MM/yyyy' }}</td>
@@ -80,8 +77,8 @@
                                     <button type="button" class="btn btn-success mx-1" data-toggle="modal" [attr.data-target]="'#modal' + order.id">
                                         <i class="fa fa-eye"></i>
                                     </button>
-                                    <button (click)="changeStatus( order )" class="btn btn-primary mx-1"><i class="fa fa-save"></i></button>
-                                    <button class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button>
+                                    <!-- <button (click)="changeStatus( order )" class="btn btn-primary mx-1"><i class="fa fa-save"></i></button> -->
+                                    <!-- <button class="btn btn-danger mx-1"><i class="fa fa-trash-o"></i></button> -->
 
                                     <!-- Modal -->
                                     <div class="modal fade" [id]="'modal' + order.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -44,6 +44,7 @@ import { OficinasMesAnioComponent } from './graficas/oficinas-mes-anio.component
 import { GraficasPedidosComponent } from './graficas/graficas-pedidos.component';
 import { GraficasPedidosOficinasAnioComponent } from './graficas/graficas-pedidos-oficinas-anio.component';
 import { GraficaFacturasComponent } from './graficas/grafica-facturas.component';
+import { OrdersAdminComponent } from './orders/orders-admin.component';
 
 //  todas las rutas tienen una propiedad llamada data, con la cual podemos agregar un titulo a nuestra url mas amigable
 
@@ -99,6 +100,7 @@ const pagesRoutes: Routes = [
                 { path: 'graficas/compare/:from/:to', component: GraficasPedidosComponent, canActivate: [ AdminGuardGuard ], data: { titulo: 'Graficos pedidos' } },
                 { path: 'graficas/pedidos/oficinas/:anio', component: GraficasPedidosOficinasAnioComponent,canActivate: [ AdminGuardGuard ], data: { titulo: 'Graficos pedidos oficinas' } },
                 { path: 'graficas/oficinas/:mes/:anio', component: OficinasMesAnioComponent, canActivate: [ AdminGuardGuard ], data: { titulo: 'Grafica oficinas por mes y año' } },
+                { path: 'orders-admin', component: OrdersAdminComponent, canActivate: [ AdminGuardGuard ], data: { titulo: 'Ordenes' } },
                 { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             ]
         }

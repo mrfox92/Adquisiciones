@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProvidersService } from '../../services/service.index';
 import { Provider } from '../../models/Provider.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-provider',
@@ -14,7 +15,10 @@ export class CreateProviderComponent implements OnInit {
 
   formulario: FormGroup;
 
-  constructor( public providersService: ProvidersService ) { }
+  constructor(
+    private router: Router,
+    public providersService: ProvidersService
+  ) { }
 
   ngOnInit(): void {
 
@@ -61,13 +65,16 @@ export class CreateProviderComponent implements OnInit {
     this.providersService.createProvider( provider ).subscribe( (resp: any) => {
       console.log( resp );
 
-      if ( resp.status === 'success' ) {
+      if ( resp.status === 'success' && resp.code === 200 ) {
         Swal.fire({
           title: 'Proveedor registrado',
           text: 'El proveedor ha sido registrado con éxito',
           icon: 'success',
           confirmButtonText: 'OK'
         });
+
+        this.router.navigate(['/proveedores']);
+
       }
 
     },

@@ -68,6 +68,8 @@ import { OficinasMesAnioComponent } from './graficas/oficinas-mes-anio.component
 import { GraficasPedidosComponent } from './graficas/graficas-pedidos.component';
 import { GraficasPedidosOficinasAnioComponent } from './graficas/graficas-pedidos-oficinas-anio.component';
 import { GraficaFacturasComponent } from './graficas/grafica-facturas.component';
+import { OrdersAdminComponent } from './orders/orders-admin.component';
+import { PdfOrderComponent } from './dispatchers/pdf-order.component';
 
 
 @NgModule({
@@ -118,7 +120,9 @@ import { GraficaFacturasComponent } from './graficas/grafica-facturas.component'
         OficinasMesAnioComponent,
         GraficasPedidosComponent,
         GraficasPedidosOficinasAnioComponent,
-        GraficaFacturasComponent
+        GraficaFacturasComponent,
+        OrdersAdminComponent,
+        PdfOrderComponent
     ],
     exports: [
         DashboardComponent,
